@@ -53,7 +53,7 @@ export default function Home() {
           </h1>
           <div className="flex gap-2">
             <Button onClick={() => signOut()}>Logout</Button>
-            <ThemeToggle />
+            <ThemeToggle variant="outline" />
           </div>
         </CardContent>
       </Card>
