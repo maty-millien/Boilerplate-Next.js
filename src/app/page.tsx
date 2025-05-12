@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { createAuthClient } from "better-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-// Create auth client instance (consider moving to a shared file like src/lib/auth-client.ts)
-const { useSession } = createAuthClient();
+const { useSession, signOut } = createAuthClient();
 
 export default function Home() {
   const router = useRouter();
@@ -18,7 +18,6 @@ export default function Home() {
     }
   }, [session, isPending, router]);
 
-  // Display loading state or welcome message
   if (isPending) {
     return (
       <main>
@@ -30,7 +29,6 @@ export default function Home() {
   }
 
   if (!session) {
-    // Should be redirected by useEffect, but return null briefly to avoid flashing content
     return null;
   }
 
@@ -49,6 +47,9 @@ export default function Home() {
         <h1 className="text-4xl font-bold">
           Hello, {session.user.name || session.user.email}!
         </h1>
+        <Button variant="destructive" onClick={() => signOut()}>
+          Logout
+        </Button>
       </div>
     </main>
   );
