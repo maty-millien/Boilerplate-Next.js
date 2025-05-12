@@ -2,6 +2,7 @@
 
 import LoginCard from "@/features/auth/components/LoginCard";
 import ThemeToggle from "@/features/theme/components/ThemeToggle";
+
 export default function AuthPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">

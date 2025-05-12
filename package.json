@@ -1,6 +1,6 @@
 {
-  "name": "chrona.ai",
-  "version": "0.1.0",
+  "name": "boilerplate",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
