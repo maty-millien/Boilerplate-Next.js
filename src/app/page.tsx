@@ -37,9 +37,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
       <Card className="w-[350px]">
         <CardContent className="flex flex-col items-center justify-center gap-4">
           {session.user.image && (
@@ -52,7 +49,7 @@ export default function Home() {
             />
           )}
           <h1 className="text-2xl font-bold">
-            Hello, {session.user.name || session.user.email}!
+            Hello, {session.user.name || session.user.email} !
           </h1>
           <div className="flex gap-2">
             <Button onClick={() => signOut()}>Logout</Button>
