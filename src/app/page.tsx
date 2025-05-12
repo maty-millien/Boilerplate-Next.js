@@ -23,10 +23,8 @@ export default function Home() {
 
   if (isPending) {
     return (
-      <main>
-        <div className="flex flex-col items-center justify-center h-screen">
-          <Loader2 className="h-12 w-12 animate-spin" />
-        </div>
+      <main className="flex flex-col items-center justify-center h-screen">
+        <Loader2 className="h-12 w-12 animate-spin" />
       </main>
     );
   }

@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 
 export default function ThemeToggle({
   variant = "default",
+  className = "",
 }: {
   variant?: "default" | "outline" | "ghost" | "secondary";
+  className?: string;
 }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -19,6 +21,7 @@ export default function ThemeToggle({
       variant={variant}
       size="icon"
       aria-label="Toggle theme"
+      className={className}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       {theme === "dark" ? (
