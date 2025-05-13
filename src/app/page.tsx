@@ -6,21 +6,12 @@ import LogoutButton from "@/features/auth/components/LogoutButton";
 import ThemeToggle from "@/features/theme/components/ThemeToggle";
 import { createAuthClient } from "better-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { toast } from "sonner";
 
 const { useSession } = createAuthClient();
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session, isPending } = useSession();
-
-  useEffect(() => {
-    if (!isPending && !session) {
-      router.push("/auth");
-    }
-  }, [session, isPending, router]);
+  const { data: session } = useSession();
 
   if (!session) return null;
 
