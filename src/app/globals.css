@@ -115,7 +115,29 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    transition: background-color 0.2s ease-out;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  a,
+  li,
+  strong,
+  em,
+  b,
+  i,
+  label,
+  small,
+  mark,
+  code,
+  pre,
+  blockquote {
+    transition: color 0.1s ease-out;
   }
   body {
     @apply bg-background text-foreground;
@@ -124,7 +146,7 @@
 
 .fade-in {
   opacity: 0;
-  animation: fadeInAnimation 0.8s ease-in-out forwards;
+  animation: fadeInAnimation 0.5s ease-in-out forwards;
 }
 @keyframes fadeInAnimation {
   to {
