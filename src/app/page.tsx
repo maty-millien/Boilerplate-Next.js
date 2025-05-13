@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ThemeToggle from "@/features/theme/components/ThemeToggle";
 import { createAuthClient } from "better-auth/react";
-import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -20,14 +19,6 @@ export default function Home() {
       router.push("/auth");
     }
   }, [session, isPending, router]);
-
-  if (isPending) {
-    return (
-      <main className="flex flex-col items-center justify-center h-screen">
-        <Loader2 className="h-12 w-12 animate-spin" />
-      </main>
-    );
-  }
 
   if (!session) {
     return null;
