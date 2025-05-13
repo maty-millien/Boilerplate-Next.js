@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import LogoutButton from "@/features/auth/components/LogoutButton";
 import ThemeToggle from "@/features/theme/components/ThemeToggle";
 import { createAuthClient } from "better-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const { useSession, signOut } = createAuthClient();
+const { useSession } = createAuthClient();
 
 export default function Home() {
   const router = useRouter();
@@ -38,9 +38,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold">{session.user.name}</h1>
           <p className="text-muted-foreground mb-8">{session.user.email}</p>
           <div className="flex gap-2 w-full">
-            <Button onClick={() => signOut()} className="flex-1">
-              Logout
-            </Button>
+            <LogoutButton className="flex-1" />
             <ThemeToggle variant="outline" />
           </div>
         </CardContent>
