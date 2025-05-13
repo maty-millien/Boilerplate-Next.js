@@ -20,28 +20,27 @@ export default function Home() {
     }
   }, [session, isPending, router]);
 
-  if (!session) {
-    return null;
-  }
+  if (!session) return null;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
       <Card className="w-[350px]">
-        <CardContent className="flex flex-col items-center justify-center gap-4">
+        <CardContent className="flex flex-col items-center justify-center">
           {session.user.image && (
             <Image
               src={session.user.image}
               alt="Profile Picture"
-              width={80}
-              height={80}
-              className="rounded-full"
+              width={96}
+              height={96}
+              className="rounded-full mb-4"
             />
           )}
-          <h1 className="text-2xl font-bold">
-            Hello, {session.user.name || session.user.email} !
-          </h1>
-          <div className="flex gap-2">
-            <Button onClick={() => signOut()}>Logout</Button>
+          <h1 className="text-4xl font-bold">{session.user.name}</h1>
+          <p className="text-muted-foreground mb-8">{session.user.email}</p>
+          <div className="flex gap-2 w-full">
+            <Button onClick={() => signOut()} className="flex-1">
+              Logout
+            </Button>
             <ThemeToggle variant="outline" />
           </div>
         </CardContent>
