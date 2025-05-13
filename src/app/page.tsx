@@ -12,14 +12,7 @@ const { useSession } = createAuthClient();
 
 export default function Home() {
   const { data: session } = useSession();
-
   if (!session) return null;
-
-  const handleSuccessToast = () => {
-    toast.success("Operation completed successfully!", {
-      description: "Have a nice day!",
-    });
-  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
@@ -40,7 +33,7 @@ export default function Home() {
             <Button
               variant="default"
               className="flex-1"
-              onClick={handleSuccessToast}
+              onClick={() => toast.success("Operation completed successfully!")}
             >
               Click me
             </Button>
