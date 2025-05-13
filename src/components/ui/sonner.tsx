@@ -13,7 +13,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         [data-sonner-toast] {
           background-color: var(--popover) !important;
           color: var(--popover-foreground) !important;
-          border-width: 1.4px !important;
+          border-width: 1.6px !important;
         }
 
         [data-sonner-toast] [data-icon] {
