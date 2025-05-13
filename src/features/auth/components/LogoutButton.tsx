@@ -9,14 +9,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { createAuthClient } from "better-auth/react";
+import { LogOutIcon } from "lucide-react";
 import { useState } from "react";
 
 const { signOut } = createAuthClient();
 
 export default function LogoutButton({
   className = "",
+  variant = "default",
+  iconOnly = false,
 }: {
   className?: string;
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost";
+  iconOnly?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -28,7 +33,13 @@ export default function LogoutButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={className}>Logout</Button>
+        <Button
+          className={className}
+          variant={variant}
+          size={iconOnly ? "icon" : "default"}
+        >
+          {iconOnly ? <LogOutIcon /> : "Logout"}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

@@ -39,6 +39,7 @@ export default function Home() {
           <p className="text-muted-foreground mb-8">{session.user.email}</p>
           <div className="flex gap-2 w-full">
             <LogoutButton className="flex-1" />
+            <LogoutButton variant="outline" iconOnly />
             <ThemeToggle variant="outline" />
           </div>
         </CardContent>
