@@ -26,25 +26,7 @@ export default function Home() {
 
   const handleSuccessToast = () => {
     toast.success("Operation completed successfully!", {
-      description: "Your changes have been saved to the database.",
-    });
-  };
-
-  const handleErrorToast = () => {
-    toast.error("Operation failed!", {
-      description: "There was an error saving your changes.",
-    });
-  };
-
-  const handleWarningToast = () => {
-    toast.warning("Warning!", {
-      description: "Your session will expire in 5 minutes.",
-    });
-  };
-
-  const handleInfoToast = () => {
-    toast.info("Did you know?", {
-      description: "Toast notifications can have different styles.",
+      description: "Have a nice day!",
     });
   };
 
@@ -63,21 +45,14 @@ export default function Home() {
           )}
           <h1 className="text-4xl font-bold">{session.user.name}</h1>
           <p className="text-muted-foreground mb-8">{session.user.email}</p>
-          <div className="grid grid-cols-2 gap-2 w-full mb-2">
-            <Button variant="default" onClick={handleSuccessToast}>
-              Success Toast
-            </Button>
-            <Button variant="destructive" onClick={handleErrorToast}>
-              Error Toast
-            </Button>
-            <Button variant="outline" onClick={handleWarningToast}>
-              Warning Toast
-            </Button>
-            <Button variant="secondary" onClick={handleInfoToast}>
-              Info Toast
-            </Button>
-          </div>
           <div className="flex gap-2 w-full">
+            <Button
+              variant="default"
+              className="flex-1"
+              onClick={handleSuccessToast}
+            >
+              Click me
+            </Button>
             <LogoutButton variant="outline" iconOnly />
             <ThemeToggle variant="outline" />
           </div>
