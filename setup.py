@@ -89,6 +89,20 @@ class NewApp:
                 console.print("[red]Failed to install packages:[/]")
                 console.print(e.stderr.decode(errors="ignore"))
 
+    def self_update_pnpm(self):
+        try:
+            subprocess.run(
+                ["pnpm", "self-update"],
+                cwd=self.dst,
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError as e:
+            if e.stderr:
+                console.print("[red]Failed to update pnpm:[/]")
+                console.print(e.stderr.decode(errors="ignore"))
+
     def run_step(self, func, desc, success):
         with Progress(
             SpinnerColumn(),
@@ -108,6 +122,11 @@ class NewApp:
             console.print(f"[red]Target directory already exists: {self.dst}[/]")
             sys.exit(1)
         steps = [
+            (
+                self.self_update_pnpm,
+                "Updating pnpm...",
+                "[green]✔ pnpm updated",
+            ),
             (
                 self.copy_boilerplate,
                 "Adding boilerplate...",
