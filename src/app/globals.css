@@ -171,7 +171,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    transition: background-color 0.2s ease-out;
+    transition: background-color 0.3s ease-out;
   }
   h1,
   h2,
@@ -193,7 +193,7 @@
   code,
   pre,
   blockquote {
-    transition: color 0.1s ease-out;
+    transition: color 0.3s ease-out;
   }
   body {
     @apply bg-background text-foreground;
