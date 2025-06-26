@@ -1,8 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
 import AuthGuard from "@/features/auth/components/AuthGuard";
+import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +35,15 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthGuard>
             <Toaster />
-            {children}
+            <Suspense
+              fallback={
+                <div className="flex h-screen w-full items-center justify-center">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                </div>
+              }
+            >
+              {children}
+            </Suspense>
           </AuthGuard>
         </ThemeProvider>
       </body>
