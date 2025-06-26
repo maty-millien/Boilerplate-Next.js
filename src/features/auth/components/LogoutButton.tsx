@@ -30,7 +30,7 @@ export default function LogoutButton({
   const handleLogout = async () => {
     await signOut();
     setOpen(false);
-    router.replace("/auth/");
+    router.replace("/auth");
   };
 
   return (

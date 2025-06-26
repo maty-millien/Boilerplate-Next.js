@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import LogoutButton from "@/features/auth/components/LogoutButton";
 import ThemeToggle from "@/features/theme/components/ThemeToggle";
 import { createAuthClient } from "better-auth/react";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -14,15 +15,18 @@ const { useSession } = createAuthClient();
 
 export default function Home() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   useEffect(() => {
-    if (!session) {
-      router.replace("/");
-    }
-  }, [session, router]);
+    if (!isPending && !session) router.replace("/auth");
+  }, [isPending, session, router]);
 
-  if (!session) return null;
+  if (isPending || !session)
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
