@@ -123,14 +123,14 @@ class NewApp:
             sys.exit(1)
         steps = [
             (
-                self.self_update_pnpm,
-                "Updating pnpm...",
-                "[green]✔ pnpm updated",
-            ),
-            (
                 self.copy_boilerplate,
                 "Adding boilerplate...",
                 "[green]✔ Added boilerplate",
+            ),
+            (
+                self.self_update_pnpm,
+                "Updating pnpm...",
+                "[green]✔ pnpm updated",
             ),
             (self.replace_in_files, "Modifying files...", "[green]✔ Modified files"),
             (
