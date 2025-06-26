@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import GoogleSignInButton from "@/features/auth/components/GoogleSignInButton";
+import GoogleLoginButton from "@/features/auth/components/GoogleLoginButton";
 
 export default function LoginCard() {
   return (
@@ -21,7 +21,7 @@ export default function LoginCard() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <GoogleSignInButton />
+        <GoogleLoginButton />
       </CardContent>
     </Card>
   );
