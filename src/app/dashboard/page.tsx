@@ -1,11 +1,11 @@
 "use client";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/features/dashboard/components/app-sidebar";
-import { ChartAreaInteractive } from "@/features/dashboard/components/chart-area-interactive";
-import { DataTable } from "@/features/dashboard/components/data-table";
-import { SectionCards } from "@/features/dashboard/components/section-cards";
-import { SiteHeader } from "@/features/dashboard/components/site-header";
+import { AppSidebar } from "@/features/dashboard/components/AppSidebar";
+import { ChartAreaInteractive } from "@/features/dashboard/components/ChartAreaInteractive";
+import { DataTable } from "@/features/dashboard/components/DataTable";
+import { SectionCards } from "@/features/dashboard/components/SectionCards";
+import { SiteHeader } from "@/features/dashboard/components/SiteHeader";
 
 import data from "./data.json" assert { type: "json" };
 
