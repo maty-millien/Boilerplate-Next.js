@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import AuthGuard from "@/features/auth/components/AuthGuard";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -30,8 +31,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Toaster />
-          {children}
+          <AuthGuard>
+            <Toaster />
+            {children}
+          </AuthGuard>
         </ThemeProvider>
       </body>
     </html>
