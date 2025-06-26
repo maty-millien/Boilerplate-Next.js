@@ -1,9 +1,8 @@
 "use client";
 
 import { createAuthClient } from "better-auth/react";
-import { Loader2 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const { useSession } = createAuthClient();
 
@@ -11,17 +10,29 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!isPending && !session && pathname !== "/auth") router.replace("/auth");
-  }, [isPending, session, router, pathname]);
+    setIsClient(true);
+  }, []);
 
-  if (isPending || (!session && pathname !== "/auth")) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
-        <Loader2 className="animate-spin" />
-      </div>
-    );
+  useEffect(() => {
+    if (!isPending && !session && pathname !== "/auth") {
+      router.replace("/auth");
+    }
+  }, [isPending, session, pathname, router]);
+
+  if (!isClient || isPending) {
+    return null;
+  }
+
+  if (!session && pathname !== "/auth") {
+    return null;
+  }
+
+  if (session && pathname === "/auth") {
+    router.replace("/dashboard");
+    return null;
   }
 
   return <>{children}</>;
