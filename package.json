@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "up": "pnpm self-update && pnpm up --latest && pnpm add next@latest"
+    "up": "pnpm self-update && pnpm up --latest && pnpm add next@latest",
+    "reset": "rm -rf node_modules && rm -rf .next && pnpm install"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
