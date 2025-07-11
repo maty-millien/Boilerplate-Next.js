@@ -8,7 +8,23 @@ export function HeroSection() {
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl" />
+
+      {/* Animated Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Large Blue Orb */}
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-blue-600/20 rounded-full blur-3xl animate-float" />
+
+        {/* Large Purple Orb */}
+        <div className="absolute top-32 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-500/25 to-purple-600/20 rounded-full blur-3xl animate-float-reverse" />
+
+        {/* Medium Blue-Purple Orb */}
+        <div className="absolute bottom-32 left-1/3 w-64 h-64 bg-gradient-to-br from-blue-600/20 to-purple-500/25 rounded-full blur-2xl animate-float-delayed" />
+
+        {/* Small Accent Orbs */}
+        <div className="absolute top-1/2 left-1/6 w-48 h-48 bg-gradient-to-br from-purple-600/20 to-blue-500/15 rounded-full blur-2xl animate-float-slow" />
+
+        <div className="absolute bottom-1/4 right-1/3 w-56 h-56 bg-gradient-to-br from-blue-700/15 to-purple-700/20 rounded-full blur-2xl animate-float-extra-slow" />
+      </div>
 
       <div className="container relative mx-auto px-4 py-24 sm:py-32 lg:py-40">
         <div className="text-center max-w-5xl mx-auto">
@@ -67,9 +83,9 @@ export function HeroSection() {
 
           {/* Product Preview */}
           <div className="relative">
-            <Card className="overflow-hidden border-0 shadow-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm">
-              <CardContent className="p-0">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 p-8 rounded-t-xl">
+            <Card className="overflow-hidden border-0 shadow-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-1 rounded-3xl">
+              <CardContent className="p-1">
+                <div className="bg-gradient-to-br from-slate-100/80 to-slate-200/80 dark:from-slate-800/80 dark:to-slate-900/80 p-6 rounded-xl">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="size-3 bg-red-500 rounded-full"></div>
                     <div className="size-3 bg-yellow-500 rounded-full"></div>
