@@ -1,0 +1,133 @@
+#!/bin/bash
+
+# Strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
+# Colors
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+# Variables
+REPLACE_PATTERN="boilerplate"
+EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "boilerplate")
+
+SRC="$(dirname "${BASH_SOURCE[0]}")"
+
+# Flags
+NO_GIT=0
+NO_INSTALL=0
+VERBOSE=0
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --no-git) NO_GIT=1; shift ;;
+    --no-install) NO_INSTALL=1; shift ;;
+    --verbose) VERBOSE=1; shift ;;
+    --help)
+      echo "Usage: $0 [options] <app_name>"
+      echo "Options:"
+      echo "  --no-git      Skip git initialization"
+      echo "  --no-install  Skip pnpm install"
+      echo "  --verbose     Enable verbose output"
+      echo "  --help        Show this help message"
+      exit 0
+      ;;
+    -*|--*) echo "Unknown option $1"; exit 1 ;;
+    *) APP_NAME="$1"; shift ;;
+  esac
+done
+
+if [[ -z "${APP_NAME:-}" ]]; then
+  echo "Error: <app_name> is required" >&2
+  exit 1
+fi
+
+# Validate APP_NAME (simple: no slashes)
+if [[ "$APP_NAME" == *[/\\]* ]]; then
+  echo "Error: app_name cannot contain slashes" >&2
+  exit 1
+fi
+
+DST="$(pwd)/$APP_NAME"
+
+# Check required commands
+for cmd in rsync find sed; do
+  command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is required" >&2; exit 1; }
+done
+
+if [[ $NO_GIT -eq 0 ]]; then
+  command -v git >/dev/null 2>&1 || { echo "Error: git is required (use --no-git to skip)" >&2; exit 1; }
+fi
+
+if [[ $NO_INSTALL -eq 0 ]]; then
+  command -v pnpm >/dev/null 2>&1 || { echo "Error: pnpm is required (use --no-install to skip)" >&2; exit 1; }
+fi
+
+# OS detection for sed
+SED_I="-i"
+if [[ "$(uname)" == "Darwin" ]]; then
+  SED_I="-i ''"
+fi
+
+# Helper function for success messages
+echo_success() {
+  echo -e "${GREEN}✔ $1${NC}"
+}
+
+# Functions
+copy_boilerplate() {
+  echo "Adding boilerplate..."
+  mkdir -p "$DST"
+  rsync -a --exclude-from=<(printf '%s\n' "${EXCLUDE[@]}") "$SRC/" "$DST/"
+  echo_success "Added boilerplate"
+}
+
+replace_in_files() {
+  echo "Modifying files..."
+  find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' -exec sh -c "sed $SED_I -E 's/$REPLACE_PATTERN/${APP_NAME}/g; s/${REPLACE_PATTERN^}/${APP_NAME^}/g; s/${REPLACE_PATTERN^^}/${APP_NAME^^}/g' \"\$@\"" sh {} +
+  echo_success "Modified files"
+}
+
+git_init_commit() {
+  if [[ $NO_GIT -eq 1 ]]; then return; fi
+  echo "Initializing git repository..."
+  (cd "$DST" && git init && git add -A && git commit -m "Initial commit for $APP_NAME project" >/dev/null 2>&1)
+  echo_success "Initialized git repository"
+}
+
+install_packages() {
+  if [[ $NO_INSTALL -eq 1 ]]; then return; fi
+  echo "Installing packages..."
+  (cd "$DST" && pnpm i >/dev/null 2>&1) || { echo "Failed to install packages" >&2; exit 1; }
+  echo_success "Packages installed"
+}
+
+# Setup function
+setup() {
+  if [[ ! -d "$SRC" ]]; then
+    echo "Error: Source boilerplate not found: $SRC" >&2
+    exit 1
+  fi
+  if [[ -d "$DST" ]]; then
+    echo "Error: Target directory already exists: $DST" >&2
+    exit 1
+  fi
+
+  copy_boilerplate
+  replace_in_files
+  install_packages
+  git_init_commit
+
+  echo "Your base project is ready!"
+}
+
+# Trap for cleanup (if needed, e.g., for temp files; minimal here)
+trap 'echo "Script interrupted or failed" >&2' INT TERM EXIT
+
+# Run setup
+setup
+
+# Reset trap on success
+trap - INT TERM EXIT
