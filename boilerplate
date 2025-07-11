@@ -10,7 +10,7 @@ NC='\033[0m'
 
 # Variables
 REPLACE_PATTERN="boilerplate"
-EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "boilerplate")
+EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "boilerplate" "generated")
 
 SRC="$(dirname "${BASH_SOURCE[0]}")"
 
@@ -97,11 +97,11 @@ git_init_commit() {
   echo_success "Initialized git repository"
 }
 
-install_packages() {
+setup_env() {
   if [[ $NO_INSTALL -eq 1 ]]; then return; fi
-  echo "Installing packages..."
-  (cd "$DST" && pnpm i >/dev/null 2>&1) || { echo "Failed to install packages" >&2; exit 1; }
-  echo_success "Packages installed"
+  echo "Setting up environment..."
+  (cd "$DST" && pnpm run reset >/dev/null 2>&1) || { echo "Failed to setup environment" >&2; exit 1; }
+  echo_success "Environment setup"
 }
 
 # Setup function
@@ -117,7 +117,7 @@ setup() {
 
   copy_boilerplate
   replace_in_files
-  install_packages
+  setup_env
   git_init_commit
 
   echo "Your base project is ready!"

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "up": "pnpm self-update && pnpm up --latest && pnpm add next@latest",
-    "reset": "sudo rm -rf node_modules && sudo rm -rf .next && pnpm install"
+    "reset": "sudo rm -rf node_modules && sudo rm -rf .next && sudo rm -rf generated && pnpm run up && pnpm install && pnpx prisma generate"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
