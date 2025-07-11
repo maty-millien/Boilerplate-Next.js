@@ -46,7 +46,7 @@ export function Navbar() {
         isScrolled
           ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border border-slate-200 dark:border-slate-700"
           : "bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50"
-      } rounded-full px-6 py-3 w-[95%] max-w-6xl`}
+      } rounded-2xl p-3 w-[95%] max-w-6xl`}
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
