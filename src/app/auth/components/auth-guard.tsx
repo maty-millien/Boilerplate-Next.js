@@ -16,35 +16,30 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     setIsClient(true);
   }, []);
 
+  const isAuthPage = pathname === "/auth";
+  const isHomePage = pathname === "/";
+  const isAuthenticated = !!session;
+
   useEffect(() => {
-    if (isPending || !isClient) {
-      return;
-    }
+    if (isPending || !isClient) return;
 
-    const isAuthPage = pathname === "/auth";
-    const isHomePage = pathname === "/";
-
-    if (!session && !isAuthPage && !isHomePage) {
+    if (!isAuthenticated && !isAuthPage && !isHomePage) {
       router.replace("/auth");
     }
 
-    if (session && isAuthPage) {
+    if (isAuthenticated && isAuthPage) {
       router.replace("/dashboard");
     }
-  }, [isPending, session, pathname, router, isClient]);
+  }, [isPending, isClient, isAuthenticated, isAuthPage, isHomePage, router]);
 
   if (isPending || !isClient) {
     return null;
   }
 
-  const isAuthPage = pathname === "/auth";
-  const isHomePage = pathname === "/";
-
-  if (!session && !isAuthPage && !isHomePage) {
-    return null;
-  }
-
-  if (session && isAuthPage) {
+  if (
+    (!isAuthenticated && !isAuthPage && !isHomePage) ||
+    (isAuthenticated && isAuthPage)
+  ) {
     return null;
   }
 
