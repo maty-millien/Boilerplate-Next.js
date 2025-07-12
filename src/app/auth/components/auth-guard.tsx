@@ -21,7 +21,9 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const isAuthenticated = !!session;
 
   useEffect(() => {
-    if (isPending || !isClient) return;
+    if (isPending || !isClient) {
+      return;
+    }
 
     if (!isAuthenticated && !isAuthPage && !isHomePage) {
       router.replace("/auth");

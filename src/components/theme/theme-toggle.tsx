@@ -20,10 +20,26 @@ export default function ThemeToggle({
 }) {
   const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const switchTheme = (newTheme: string) => {
+    setTheme(newTheme);
+  };
+
+  const toggleTheme = (newTheme: string) => {
+    if (!document.startViewTransition) {
+      switchTheme(newTheme);
+      return;
+    }
+
+    document.startViewTransition(() => switchTheme(newTheme));
+  };
+
   if (!mounted) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,13 +56,13 @@ export default function ThemeToggle({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => toggleTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => toggleTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={() => toggleTheme("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
