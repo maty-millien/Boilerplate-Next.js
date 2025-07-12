@@ -1,6 +1,6 @@
 "use client";
 
-import GoogleLoginButton from "@/app/(pages)/auth/components/google-login-button";
+import GoogleLoginButton from "@/app/auth/components/google-login-button";
 import {
   Card,
   CardContent,
