@@ -1,7 +1,7 @@
 "use client";
 
 import LoginCard from "@/app/auth/components/login-card";
-import ThemeToggle from "@/components/theme/components/theme-toggle";
+import ThemeToggle from "@/components/theme/theme-toggle";
 import { createAuthClient } from "better-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";

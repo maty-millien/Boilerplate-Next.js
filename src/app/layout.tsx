@@ -1,5 +1,5 @@
-import "@/app/(root)/globals.css";
 import AuthGuard from "@/app/auth/components/auth-guard";
+import "@/components/theme/theme.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";

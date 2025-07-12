@@ -1,4 +1,4 @@
-import ThemeToggle from "@/components/theme/components/theme-toggle";
+import ThemeToggle from "@/components/theme/theme-toggle";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 

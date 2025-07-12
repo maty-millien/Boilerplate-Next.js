@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeToggle from "@/components/theme/components/theme-toggle";
+import ThemeToggle from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
