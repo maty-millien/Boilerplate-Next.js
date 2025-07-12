@@ -20,6 +20,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Boilerplate",
   description: "Boilerplate",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
