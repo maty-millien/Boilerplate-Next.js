@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import GoogleLoginButton from "@/features/auth/components/GoogleLoginButton";
+import GoogleLoginButton from "@/features/auth/components/google-login-button";
 
 export default function LoginCard() {
   return (

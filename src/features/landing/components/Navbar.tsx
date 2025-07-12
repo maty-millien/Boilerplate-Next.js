@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import ThemeToggle from "@/features/theme/components/ThemeToggle";
+import ThemeToggle from "@/features/theme/components/theme-toggle";
 import { ArrowRight, Code, Github, Menu, Star, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 

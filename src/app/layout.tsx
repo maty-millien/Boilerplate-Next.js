@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import AuthGuard from "@/features/auth/components/AuthGuard";
+import AuthGuard from "@/features/auth/components/auth-guard";
 import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
