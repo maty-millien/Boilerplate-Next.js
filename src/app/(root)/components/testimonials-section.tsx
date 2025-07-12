@@ -9,7 +9,8 @@ export function TestimonialsSection() {
       name: "Sarah Chen",
       role: "Senior Developer",
       company: "TechCorp",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=40&h=40&fit=crop&crop=face",
       content:
         "This boilerplate saved me 3 weeks of development time. The authentication system is rock-solid and the code quality is exceptional.",
       rating: 5,
@@ -19,7 +20,8 @@ export function TestimonialsSection() {
       name: "Mike Rodriguez",
       role: "Founder",
       company: "StartupFlow",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
       content:
         "I&apos;ve launched 3 SaaS products using this boilerplate. The payment integration and user management features are game-changers.",
       rating: 5,
@@ -29,7 +31,8 @@ export function TestimonialsSection() {
       name: "Emily Johnson",
       role: "Fullstack Developer",
       company: "DevStudio",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
       content:
         "The TypeScript setup and component library are exactly what I needed. Clean, maintainable code that scales beautifully.",
       rating: 5,
@@ -39,7 +42,8 @@ export function TestimonialsSection() {
       name: "David Kim",
       role: "Tech Lead",
       company: "InnovateLab",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
       content:
         "Best investment I&apos;ve made as a developer. The documentation is clear, and the codebase follows all the best practices.",
       rating: 5,
@@ -49,7 +53,8 @@ export function TestimonialsSection() {
       name: "Lisa Wang",
       role: "Product Manager",
       company: "GrowthCo",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=40&h=40&fit=crop&crop=face",
       content:
         "Our development velocity increased by 300% after switching to this boilerplate. The team loves the developer experience.",
       rating: 5,
@@ -59,7 +64,8 @@ export function TestimonialsSection() {
       name: "Alex Turner",
       role: "Indie Hacker",
       company: "Solo Dev",
-      avatar: "/api/placeholder/40/40",
+      avatar:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face",
       content:
         "Perfect for solo developers like me. I can focus on building features instead of wrestling with authentication and database setup.",
       rating: 5,
