@@ -1,11 +1,11 @@
+import "@/app/(root)/globals.css";
+import AuthGuard from "@/app/auth/components/auth-guard";
 import { Toaster } from "@/components/ui/sonner";
-import AuthGuard from "@/features/auth/components/auth-guard";
 import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
-import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

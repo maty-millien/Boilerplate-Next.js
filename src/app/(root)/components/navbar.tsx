@@ -1,5 +1,6 @@
 "use client";
 
+import ThemeToggle from "@/components/theme/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -8,7 +9,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import ThemeToggle from "@/features/theme/components/theme-toggle";
 import { ArrowRight, Code, Github, Menu, Star, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 
