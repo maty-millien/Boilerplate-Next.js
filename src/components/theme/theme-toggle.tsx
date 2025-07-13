@@ -11,13 +11,17 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+type Theme = "light" | "dark" | "system";
+
+interface ThemeToggleProps {
+  variant?: "default" | "outline" | "ghost" | "secondary";
+  className?: string;
+}
+
 export default function ThemeToggle({
   variant = "default",
   className = "",
-}: {
-  variant?: "default" | "outline" | "ghost" | "secondary";
-  className?: string;
-}) {
+}: ThemeToggleProps) {
   const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -25,17 +29,13 @@ export default function ThemeToggle({
     setMounted(true);
   }, []);
 
-  const switchTheme = (newTheme: string) => {
-    setTheme(newTheme);
-  };
-
-  const toggleTheme = (newTheme: string) => {
+  const handleThemeChange = (newTheme: Theme) => {
     if (!document.startViewTransition) {
-      switchTheme(newTheme);
+      setTheme(newTheme);
       return;
     }
 
-    document.startViewTransition(() => switchTheme(newTheme));
+    document.startViewTransition(() => setTheme(newTheme));
   };
 
   if (!mounted) return null;
@@ -56,13 +56,13 @@ export default function ThemeToggle({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => toggleTheme("light")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => toggleTheme("dark")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => toggleTheme("system")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
