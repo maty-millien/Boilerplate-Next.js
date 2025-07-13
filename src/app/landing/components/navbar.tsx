@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ArrowRight, Code, Github, Menu, Star, Zap } from "lucide-react";
+import { ArrowRight, Code, Menu, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function Navbar() {
@@ -29,7 +29,6 @@ export function Navbar() {
     { name: "Pricing", href: "#pricing" },
     { name: "Testimonials", href: "#testimonials" },
     { name: "FAQ", href: "#faq" },
-    { name: "Docs", href: "#docs" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -42,19 +41,16 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl p-3 w-[95%] max-w-4xl ${
         isScrolled
-          ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border border-slate-200 dark:border-slate-700"
-          : "bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50"
-      } rounded-2xl p-3 w-[95%] max-w-6xl`}
+          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg border border-slate-200 dark:border-slate-700"
+          : ""
+      }`}
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-blue-500 rounded-lg">
-            <Code className="size-5 text-white" />
-          </div>
-          <div className="font-bold text-lg">NextJS Boilerplate</div>
+        <div className="p-2 bg-blue-500 rounded-lg">
+          <Code className="size-5 text-white" />
         </div>
 
         {/* Desktop Navigation */}
@@ -72,25 +68,8 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-2"
-            onClick={() => window.open("https://github.com", "_blank")}
-          >
-            <Github className="size-4" />
-            <span className="hidden lg:inline">GitHub</span>
-          </Button>
-
-          <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">
-            <Star className="size-3 fill-yellow-400 text-yellow-400" />
-            <span>2.1k</span>
-          </div>
-
           <ThemeToggle variant="ghost" />
-
           <Button size="sm" className="gap-2">
-            <Zap className="size-4" />
             Get Started
             <ArrowRight className="size-4" />
           </Button>
@@ -99,7 +78,6 @@ export function Navbar() {
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center gap-2">
           <ThemeToggle variant="ghost" />
-
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="sm">
@@ -128,28 +106,11 @@ export function Navbar() {
                 ))}
 
                 <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full gap-2 mb-3"
-                    onClick={() => window.open("https://github.com", "_blank")}
-                  >
-                    <Github className="size-4" />
-                    View on GitHub
-                  </Button>
-
                   <Button size="sm" className="w-full gap-2">
                     <Zap className="size-4" />
                     Get Started
                     <ArrowRight className="size-4" />
                   </Button>
-                </div>
-
-                <div className="flex items-center justify-center gap-2 pt-4">
-                  <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded-full">
-                    <Star className="size-3 fill-yellow-400 text-yellow-400" />
-                    <span>2.1k stars on GitHub</span>
-                  </div>
                 </div>
               </div>
             </SheetContent>
