@@ -13,7 +13,7 @@ import {
 
 export function Footer() {
   return (
-    <footer className="bg-card text-foreground">
+    <footer className="bg-muted text-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-32">
           {/* Brand Section */}
@@ -22,7 +22,7 @@ export function Footer() {
               <div className="p-2 bg-primary rounded-lg">
                 <Code className="size-6" />
               </div>
-              <div className="text-xl font-bold">NextJS Boilerplate</div>
+              <div className="text-xl font-bold ml-2">NextJS Boilerplate</div>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">
               The most comprehensive Next.js boilerplate for building

@@ -57,12 +57,12 @@ export function HeroSection() {
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center bg-background/50 backdrop-blur-sm rounded-3xl w-fit mx-auto p-4">
           <Button size="lg">
             Get Started Now
             <ArrowRight />
           </Button>
-          <Button size="lg" variant="outline" className="backdrop-blur-xs">
+          <Button size="lg" className="bg-primary/10 border border-primary/25">
             <Github />
             View Demo
           </Button>
