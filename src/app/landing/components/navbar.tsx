@@ -42,9 +42,7 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl p-3 w-[95%] max-w-4xl ${
-        isScrolled
-          ? "bg-background/90 dark:bg-card/90 backdrop-blur-md shadow-lg border border-border dark:border-border"
-          : ""
+        isScrolled ? "bg-background/80 backdrop-blur-lg shadow-lg" : ""
       }`}
     >
       <div className="flex items-center justify-between">
@@ -53,13 +51,13 @@ export function Navbar() {
           <Code className="size-5 text-primary-foreground" />
         </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Navigation - Centered */}
+        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navItems.map((item) => (
             <button
               key={item.name}
               onClick={() => scrollToSection(item.href)}
-              className="text-muted-foreground dark:text-foreground hover:text-foreground dark:hover:text-foreground transition-colors font-medium"
+              className="text-muted-foreground dark:text-foreground hover:text-foreground dark:hover:text-foreground transition-colors text-sm"
             >
               {item.name}
             </button>
