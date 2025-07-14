@@ -64,7 +64,7 @@ export function Chart01() {
   const lastMonth = chartData[chartData.length - 1]?.month as string;
 
   return (
-    <Card className="gap-4 rounded-none">
+    <Card className="gap-4 rounded-none border-none">
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <div className="space-y-0.5">

@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  RiMore2Line,
-  RiTimer2Line,
-  RiUserLine,
-  RiPulseLine,
   RiFindReplaceLine,
   RiLogoutCircleLine,
+  RiMore2Line,
+  RiPulseLine,
+  RiTimer2Line,
+  RiUserLine,
 } from "@remixicon/react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

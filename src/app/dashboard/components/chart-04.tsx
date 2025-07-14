@@ -91,7 +91,7 @@ export function Chart04() {
   const id = useId();
 
   return (
-    <Card className="gap-4 rounded-none">
+    <Card className="gap-4 rounded-none border-none">
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="space-y-0.5">

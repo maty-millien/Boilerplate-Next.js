@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Chart06() {
   return (
-    <Card className="gap-5 rounded-none">
+    <Card className="gap-5 rounded-none border-none">
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="space-y-0.5">

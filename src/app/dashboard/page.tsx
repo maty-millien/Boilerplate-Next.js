@@ -18,8 +18,8 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function Page() {
   return (
-    <div className="px-4 md:px-6 lg:px-8 @container">
-      <header className="flex flex-wrap gap-3 min-h-20 py-4 shrink-0 items-center transition-all ease-linear border-b">
+    <div className="p-4 pt-0 md:p-6 md:pt-0 lg:p-8 lg:pt-0 @container">
+      <header className="flex flex-wrap gap-3 min-h-20 py-4 shrink-0 items-center transition-all ease-linear">
         {/* Left side */}
         <div className="flex flex-1 items-center gap-2">
           <SidebarTrigger className="-ms-1" />
@@ -44,15 +44,13 @@ export default function Page() {
         {/* Right side */}
         <ActionButtons />
       </header>
-      <div className="overflow-hidden">
-        <div className="grid auto-rows-min @2xl:grid-cols-2 *:-ms-px *:-mt-px -m-px">
-          <Chart01 />
-          <Chart02 />
-          <Chart03 />
-          <Chart04 />
-          <Chart05 />
-          <Chart06 />
-        </div>
+      <div className="grid auto-rows-min @2xl:grid-cols-2 bg-border gap-[1px]">
+        <Chart01 />
+        <Chart02 />
+        <Chart03 />
+        <Chart04 />
+        <Chart05 />
+        <Chart06 />
       </div>
     </div>
   );
