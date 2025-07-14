@@ -1,11 +1,9 @@
 import AuthGuard from "@/app/auth/components/auth-guard";
 import "@/components/theme/theme.css";
 import { Toaster } from "@/components/ui/sonner";
-import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,15 +38,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthGuard>
             <Toaster />
-            <Suspense
-              fallback={
-                <div className="flex h-screen w-full items-center justify-center">
-                  <Loader2 className="h-8 w-8 animate-spin" />
-                </div>
-              }
-            >
-              {children}
-            </Suspense>
+            {children}
           </AuthGuard>
         </ThemeProvider>
       </body>
