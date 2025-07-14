@@ -1,23 +1,23 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  endOfMonth,
-  endOfYear,
-  startOfMonth,
-  startOfYear,
-  subDays,
-  subMonths,
-  subYears,
-} from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import {
+  endOfMonth,
+  endOfYear,
+  format,
+  startOfMonth,
+  startOfYear,
+  subDays,
+  subMonths,
+  subYears,
+} from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
@@ -60,7 +60,7 @@ export default function DatePicker() {
     <div className="*:not-first:mt-2">
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="justify-start min-w-62">
+          <Button variant="outline" className="justify-start">
             <CalendarIcon
               size={16}
               className="opacity-40 -ms-1 group-hover:text-foreground shrink-0 transition-colors"
