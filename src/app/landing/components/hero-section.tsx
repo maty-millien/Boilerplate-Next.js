@@ -27,18 +27,18 @@ export function HeroSection() {
 
       <div className="relative text-center max-w-5xl mx-auto px-4">
         {/* Eyebrow */}
-        <Badge
-          variant="outline"
-          className="mb-10 px-4 py-2 text-sm font-medium border-foreground/30 rounded-full"
-        >
-          <Zap className="size-4 mr-2" />
-          Ship faster with premium boilerplate
+        <Badge className="mb-10 bg-primary/10 backdrop-blur-xs py-2 px-4 rounded-full text-primary-foreground border border-primary">
+          <Zap />
+          Premium Boilerplate
         </Badge>
 
         {/* Main Headlines */}
         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-10">
           Build{" "}
-          <span className="bg-gradient-to-r from-primary to-chart-4 dark:from-primary dark:to-chart-5 bg-clip-text text-transparent">
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: "var(--gradient-hero-section)" }}
+          >
             production-ready
           </span>
           <br />
@@ -53,15 +53,15 @@ export function HeroSection() {
 
         {/* Key Features */}
         <div className="flex flex-wrap justify-center gap-12 mb-10">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm">
             <Code className="size-4" />
             TypeScript + Tailwind
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm">
             <Rocket className="size-4" />
             Auth + Database
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm">
             <Zap className="size-4" />
             Payments Ready
           </div>
@@ -71,10 +71,10 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button size="lg">
             Get Started Now
-            <ArrowRight className="ml-2" />
+            <ArrowRight />
           </Button>
-          <Button size="lg" variant="outline">
-            <Github className="mr-2" />
+          <Button size="lg" variant="outline" className="backdrop-blur-xs">
+            <Github />
             View Demo
           </Button>
         </div>

@@ -69,7 +69,7 @@ export function Navbar() {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle variant="ghost" />
-          <Button size="sm" className="gap-2">
+          <Button>
             Get Started
             <ArrowRight className="size-4" />
           </Button>
