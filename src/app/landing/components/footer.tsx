@@ -13,18 +13,18 @@ import {
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-card text-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="p-2 bg-blue-500 rounded-lg">
+              <div className="p-2 bg-primary rounded-lg">
                 <Code className="size-6" />
               </div>
               <div className="text-xl font-bold">NextJS Boilerplate</div>
             </div>
-            <p className="text-slate-400 mb-6 max-w-sm">
+            <p className="text-muted-foreground mb-6 max-w-sm">
               The most comprehensive Next.js boilerplate for building
               production-ready SaaS applications. Trusted by thousands of
               developers worldwide.
@@ -36,13 +36,13 @@ export function Footer() {
               <div className="flex gap-2">
                 <Input
                   placeholder="Enter your email"
-                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-400"
+                  className="bg-input border-border text-foreground placeholder:text-muted-foreground"
                 />
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <Button size="icon">
                   <ArrowRight className="size-4" />
                 </Button>
               </div>
-              <p className="text-xs text-slate-500 mt-2">
+              <p className="text-xs text-muted-foreground mt-2">
                 Get notified about updates and new features
               </p>
             </div>
@@ -51,28 +51,28 @@ export function Footer() {
             <div className="flex gap-4">
               <a
                 href="#"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                className="p-2 bg-secondary rounded-lg hover:opacity-90 transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="size-5" />
               </a>
               <a
                 href="#"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                className="p-2 bg-secondary rounded-lg hover:opacity-90 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="size-5" />
               </a>
               <a
                 href="#"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                className="p-2 bg-secondary rounded-lg hover:opacity-90 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
               </a>
               <a
                 href="#"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                className="p-2 bg-secondary rounded-lg hover:opacity-90 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="size-5" />
@@ -83,29 +83,29 @@ export function Footer() {
           {/* Product Links */}
           <div>
             <h4 className="font-semibold mb-4">Product</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Pricing
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Changelog
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Roadmap
                 </a>
               </li>
@@ -115,29 +115,29 @@ export function Footer() {
           {/* Resources Links */}
           <div>
             <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Tutorials
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Examples
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Community
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Discord
                 </a>
               </li>
@@ -147,29 +147,29 @@ export function Footer() {
           {/* Company Links */}
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   About
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Contact
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Support
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-foreground transition-colors">
                   Terms of Service
                 </a>
               </li>
@@ -177,28 +177,28 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="my-8 bg-slate-800" />
+        <Separator className="my-8 bg-border" />
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-slate-400 text-sm">
+          <div className="text-muted-foreground text-sm">
             © 2024 NextJS Boilerplate. All rights reserved.
           </div>
 
-          <div className="flex items-center gap-1 text-slate-400 text-sm">
+          <div className="flex items-center gap-1 text-muted-foreground text-sm">
             <span>Built with</span>
-            <Heart className="size-4 text-red-500 fill-red-500" />
+            <Heart className="size-4 text-primary fill-primary" />
             <span>by developers, for developers</span>
           </div>
 
-          <div className="flex gap-6 text-sm text-slate-400">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors">
               Privacy
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-foreground transition-colors">
               Terms
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-foreground transition-colors">
               Cookies
             </a>
           </div>

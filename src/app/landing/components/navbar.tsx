@@ -43,14 +43,14 @@ export function Navbar() {
     <nav
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl p-3 w-[95%] max-w-4xl ${
         isScrolled
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg border border-slate-200 dark:border-slate-700"
+          ? "bg-background/90 dark:bg-card/90 backdrop-blur-md shadow-lg border border-border dark:border-border"
           : ""
       }`}
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="p-2 bg-blue-500 rounded-lg">
-          <Code className="size-5 text-white" />
+        <div className="p-2 bg-primary rounded-lg">
+          <Code className="size-5 text-primary-foreground" />
         </div>
 
         {/* Desktop Navigation */}
@@ -59,7 +59,7 @@ export function Navbar() {
             <button
               key={item.name}
               onClick={() => scrollToSection(item.href)}
-              className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium"
+              className="text-muted-foreground dark:text-foreground hover:text-foreground dark:hover:text-foreground transition-colors font-medium"
             >
               {item.name}
             </button>
@@ -87,8 +87,8 @@ export function Navbar() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2 text-left">
-                  <div className="p-2 bg-blue-500 rounded-lg">
-                    <Code className="size-5 text-white" />
+                  <div className="p-2 bg-primary rounded-lg">
+                    <Code className="size-5 text-primary-foreground" />
                   </div>
                   NextJS Boilerplate
                 </SheetTitle>
@@ -99,13 +99,13 @@ export function Navbar() {
                   <button
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left py-3 px-4 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium"
+                    className="block w-full text-left py-3 px-4 text-muted-foreground dark:text-foreground hover:text-foreground dark:hover:text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-colors font-medium"
                   >
                     {item.name}
                   </button>
                 ))}
 
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div className="pt-4 border-t border-border dark:border-border">
                   <Button size="sm" className="w-full gap-2">
                     <Zap className="size-4" />
                     Get Started
