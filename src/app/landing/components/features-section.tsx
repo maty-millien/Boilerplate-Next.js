@@ -36,7 +36,7 @@ export function FeaturesSection() {
             </span>
           </h2>
 
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Skip months of development with our production-ready boilerplate.
             Built with modern tools and best practices.
           </p>
