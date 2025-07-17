@@ -10,13 +10,13 @@ export function HeroSection() {
 
       {/* Animated central blob */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl opacity-20"
         style={{ background: "var(--gradient-hero-section)" }}
       />
 
-      <div className="relative text-center max-w-5xl mx-auto px-4 animate-fade-in-up">
+      <div className="relative text-center max-w-5xl mx-auto px-4">
         {/* Eyebrow */}
-        <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full text-primary-foreground border border-primary animate-fade-in">
+        <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full text-primary-foreground border border-primary">
           <Sparkles className="size-4 mr-1.5" />
           New Features
         </Badge>
