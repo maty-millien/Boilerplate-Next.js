@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Code,
   Database,
-  Globe,
   Lock,
   Palette,
   Rocket,
@@ -20,7 +19,7 @@ export function FeaturesSection() {
       <div className="max-w-7xl mx-auto px-4 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1 px-3 rounded-full text-primary-foreground border border-primary transition-all duration-300 hover:bg-primary/20">
+          <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full dark:text-primary-foreground text-primary border border-primary">
             <Star className="size-3 mr-1" />
             Core Features
           </Badge>
@@ -58,13 +57,13 @@ export function FeaturesSection() {
                 ready to use.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Prisma
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   PostgreSQL
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Migrations
                 </Badge>
               </div>
@@ -86,10 +85,10 @@ export function FeaturesSection() {
                 rapid development.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Tailwind CSS
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   50+ Components
                 </Badge>
               </div>
@@ -113,16 +112,16 @@ export function FeaturesSection() {
               </p>
 
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   OAuth 2.0
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   JWT Tokens
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Role Management
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Session Control
                 </Badge>
               </div>
@@ -144,13 +143,13 @@ export function FeaturesSection() {
                 Zod validation.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   TypeScript
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Zod
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   tRPC
                 </Badge>
               </div>
@@ -172,10 +171,10 @@ export function FeaturesSection() {
                 optimizations.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   App Router
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Server Components
                 </Badge>
               </div>
@@ -187,11 +186,8 @@ export function FeaturesSection() {
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             <div className="relative z-10 h-full flex flex-col space-y-4">
-              <div className="flex items-start justify-between">
-                <div className="p-3 bg-emerald-500/10 rounded-xl w-fit transition-all duration-300 group-hover:bg-emerald-500/20">
-                  <Rocket className="size-7 text-emerald-600 transition-transform group-hover:scale-110" />
-                </div>
-                <Globe className="size-5 text-muted-foreground transition-colors group-hover:text-emerald-600" />
+              <div className="p-3 bg-emerald-500/10 rounded-xl w-fit transition-all duration-300 group-hover:bg-emerald-500/20">
+                <Rocket className="size-7 text-emerald-600 transition-transform group-hover:scale-110" />
               </div>
               <h3 className="text-xl font-bold">Deploy Anywhere</h3>
               <p className="text-muted-foreground leading-relaxed flex-grow">
@@ -199,13 +195,13 @@ export function FeaturesSection() {
                 pipelines included for seamless deployments.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Vercel
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Docker
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   CI/CD
                 </Badge>
               </div>
@@ -227,10 +223,10 @@ export function FeaturesSection() {
                 configured.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   CSRF Protection
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Secure Headers
                 </Badge>
               </div>
@@ -252,13 +248,13 @@ export function FeaturesSection() {
                 productivity.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   ESLint
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Prettier
                 </Badge>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="outline" className="text-xs text-foreground">
                   Hot Reload
                 </Badge>
               </div>

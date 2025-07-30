@@ -16,7 +16,7 @@ export function HeroSection() {
 
       <div className="relative text-center max-w-7xl mx-auto px-4">
         {/* Eyebrow */}
-        <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full text-primary-foreground border border-primary">
+        <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full dark:text-primary-foreground text-primary border border-primary">
           <Sparkles className="size-4 mr-1.5" />
           New Features
         </Badge>
