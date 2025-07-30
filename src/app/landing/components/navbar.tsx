@@ -41,7 +41,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl p-3 w-[95%] max-w-4xl ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl p-3 w-[95%] max-w-7xl ${
         isScrolled ? "bg-background/80 backdrop-blur-lg shadow-lg" : ""
       }`}
     >

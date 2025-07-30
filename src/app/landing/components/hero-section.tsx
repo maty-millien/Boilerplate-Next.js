@@ -14,7 +14,7 @@ export function HeroSection() {
         style={{ background: "var(--gradient-hero-section)" }}
       />
 
-      <div className="relative text-center max-w-5xl mx-auto px-4">
+      <div className="relative text-center max-w-7xl mx-auto px-4">
         {/* Eyebrow */}
         <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1.5 px-3 rounded-full text-primary-foreground border border-primary">
           <Sparkles className="size-4 mr-1.5" />

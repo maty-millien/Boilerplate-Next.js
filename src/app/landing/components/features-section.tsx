@@ -17,7 +17,7 @@ export function FeaturesSection() {
     <section id="features" className="relative py-24 bg-background">
       {/* Background Elements */}
 
-      <div className="container mx-auto px-4 relative">
+      <div className="max-w-7xl mx-auto px-4 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
           <Badge className="mb-6 bg-primary/10 backdrop-blur-xs py-1 px-3 rounded-full text-primary-foreground border border-primary transition-all duration-300 hover:bg-primary/20">
@@ -42,7 +42,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl">
           {/* Database Ready */}
           <div className="group relative bg-muted backdrop-blur-sm border border-border rounded-2xl p-6 hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1 hover:scale-[1.01] min-h-[250px]">
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

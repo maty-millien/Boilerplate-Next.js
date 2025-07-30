@@ -14,7 +14,7 @@ import {
 export function Footer() {
   return (
     <footer className="bg-muted text-foreground">
-      <div className="container mx-auto px-4 py-16">
+      <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-32">
           {/* Brand Section */}
           <div className="lg:col-span-2">
