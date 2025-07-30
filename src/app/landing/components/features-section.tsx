@@ -26,10 +26,7 @@ export function FeaturesSection() {
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
             Everything you need to{" "}
-            <span
-              className="bg-clip-text text-transparent transition-all duration-500 hover:tracking-wider"
-              style={{ backgroundImage: "var(--gradient-hero-section)" }}
-            >
+            <span className="bg-clip-text text-transparent bg-gradient-to-b from-primary to-chart-4 font-extrabold">
               ship faster
             </span>
           </h2>
@@ -70,7 +67,6 @@ export function FeaturesSection() {
             </div>
           </div>
 
-          {/* Modern UI */}
           <div className="group relative bg-muted backdrop-blur-sm border border-border rounded-2xl p-6 hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1 hover:scale-[1.01] min-h-[250px]">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

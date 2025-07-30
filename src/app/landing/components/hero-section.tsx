@@ -9,10 +9,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_55%_at_center,white_50%,transparent_85%)]" />
 
       {/* Animated central blob */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl opacity-20"
-        style={{ background: "var(--gradient-hero-section)" }}
-      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl opacity-20 bg-gradient-to-r from-primary to-chart-4" />
 
       <div className="relative text-center max-w-7xl mx-auto px-4">
         {/* Eyebrow */}
@@ -24,10 +21,7 @@ export function HeroSection() {
         {/* Main Headlines */}
         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6">
           Build{" "}
-          <span
-            className="bg-clip-text text-transparent font-extrabold"
-            style={{ backgroundImage: "var(--gradient-hero-section)" }}
-          >
+          <span className="bg-clip-text text-transparent bg-gradient-to-b from-primary to-chart-4 font-extrabold">
             production-ready
           </span>
           <br />
