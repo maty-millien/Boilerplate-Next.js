@@ -5,14 +5,14 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?logo=postgresql)](#)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-blue?logo=tailwind-css)](#)
 
-A modern starter template for full-stack applications with **Next.js 15**, Google authentication, PostgreSQL (via Prisma), and a complete UI component library. Pre-configured for rapid development with authentication, database integration, theming, and accessible UI.
+A modern starter template for full-stack applications with **Next.js 15**, Google authentication, PostgreSQL (via Prisma), and a complete UI component library based on **shadcn/ui**. Pre-configured for rapid development with authentication, database integration, theming, and accessible UI.
 
 ## ✨ Features
 
 * ⚡ **Next.js 15** with App Router
 * 🔐 **Google Authentication** via better-auth
 * 🗄️ **PostgreSQL Database** using Prisma ORM
-* 🖌️ **Prebuilt UI Components** (Radix UI, custom, Tailwind CSS)
+* 🖌️ **Prebuilt UI Components** using **shadcn/ui** and Tailwind CSS
 * 🌗 **Light/Dark Theme Toggle** with state persistence
 * 🔔 **Toast Notifications**
 
@@ -74,7 +74,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## 💻 Tech Stack
 
-* **Frontend:** Next.js 15, React 19, Tailwind CSS, Radix UI
+* **Frontend:** Next.js 15, React 19, Tailwind CSS, **shadcn/ui**
 * **Backend:** Prisma ORM, PostgreSQL
 * **Auth:** Google OAuth (better-auth)
 * **UI:** Accessible, reusable components (Button, Card, Dialog, Table, etc.)
@@ -91,4 +91,4 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## 📂 UI Components
 
-All reusable components are located in `src/components/ui` for rapid development and consistent design.
+All reusable components are located in `src/components/ui` based on **shadcn/ui**, ensuring consistent design and rapid development.
