@@ -1,46 +1,51 @@
-# Boilerplate
+# ⚡ Boilerplate Next.js
 
-A modern Next.js boilerplate with Google authentication, PostgreSQL (via Prisma), and a comprehensive UI component library.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](#)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?logo=postgresql)](#)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-blue?logo=tailwind-css)](#)
 
-## Usage: Create a New Project
+A modern starter template for full-stack applications with **Next.js 15**, Google authentication, PostgreSQL (via Prisma), and a complete UI component library. Pre-configured for rapid development with authentication, database integration, theming, and accessible UI.
 
-To scaffold a new project using this boilerplate, run:
+## ✨ Features
 
-```
+* ⚡ **Next.js 15** with App Router
+* 🔐 **Google Authentication** via better-auth
+* 🗄️ **PostgreSQL Database** using Prisma ORM
+* 🖌️ **Prebuilt UI Components** (Radix UI, custom, Tailwind CSS)
+* 🌗 **Light/Dark Theme Toggle** with state persistence
+* 🔔 **Toast Notifications**
+
+## 🚀 Usage: Create a New Project
+
+Run the setup script to scaffold a new project:
+
+```bash
 python setup.py <your_app_name>
 ```
 
 This will:
 
-- Copy the boilerplate to a new folder named `<your_app_name>`
-- Replace all instances of "boilerplate" in files with your app name
-- Initialize a new git repository
-- Install dependencies with pnpm
+* Copy the boilerplate to a folder named `<your_app_name>`
+* Replace all instances of `"boilerplate"` with your app name
+* Initialize a new Git repository
+* Install dependencies with **npm**
 
-After setup, follow the steps below inside your new project directory.
+After setup, enter your new project directory and follow the next steps.
 
-## Features
-
-- Next.js 15 with App Router
-- Google authentication (via better-auth)
-- PostgreSQL database (Prisma ORM)
-- Prebuilt, accessible UI components (Radix UI, custom, Tailwind CSS)
-- Light/dark theme toggle
-- Toast notifications
-
-## Getting Started
+## 🛠️ Getting Started
 
 ### 1. Install dependencies
 
-```
-pnpm install
+```bash
+npm install
 ```
 
 ### 2. Configure environment variables
 
-Create a `.env` file in the root with:
+Create a `.env` file in the root:
 
-```
+```env
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
@@ -48,45 +53,42 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 
 ### 3. Set up the database
 
-```
-pnpm exec prisma migrate deploy
+```bash
+npx prisma migrate deploy
 ```
 
 ### 4. Run the development server
 
+```bash
+npm run dev
 ```
-pnpm dev
-```
 
-Visit [http://localhost:3000](http://localhost:3000).
+Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
-## Scripts
+## 📝 Scripts
 
-- `pnpm dev` – Start the dev server
-- `pnpm build` – Build for production
-- `pnpm start` – Start production server
-- `pnpm lint` – Lint code
+* `npm run dev` – Start development server
+* `npm run build` – Build for production
+* `npm start` – Run production server
+* `npm run lint` – Lint project files
 
-## Tech Stack
+## 💻 Tech Stack
 
-- Next.js 15
-- React 19
-- Prisma ORM
-- PostgreSQL
-- Tailwind CSS
-- Radix UI
-- better-auth
+* **Frontend:** Next.js 15, React 19, Tailwind CSS, Radix UI
+* **Backend:** Prisma ORM, PostgreSQL
+* **Auth:** Google OAuth (better-auth)
+* **UI:** Accessible, reusable components (Button, Card, Dialog, Table, etc.)
 
-## Authentication
+## 🎨 Theming
 
-- Google OAuth (sign in with Google)
-- Session management via PostgreSQL
+* Light/dark mode toggle
+* Theme state persisted across sessions
 
-## UI Components
+## 🔑 Authentication
 
-Reusable components in `src/components/ui` (Button, Card, Dialog, Table, etc.)
+* Sign in with Google
+* Session management via PostgreSQL
 
-## Theming
+## 📂 UI Components
 
-- Light/dark mode toggle
-- Theme state persisted
+All reusable components are located in `src/components/ui` for rapid development and consistent design.
