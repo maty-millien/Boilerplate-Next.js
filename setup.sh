@@ -2,8 +2,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-REPLACE_PATTERN="boilerplate"
-EXCLUDE=(".git" "setup.sh")
+REPLACE_PATTERN="PROJECT_NAME"
+EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
 
 NO_GIT=0

@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Boilerplate",
-  description: "Boilerplate",
+  title: "PROJECT_NAME",
+  description: "PROJECT_NAME",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
