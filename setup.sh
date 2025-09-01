@@ -1,152 +1,112 @@
-#!/bin/bash
-
-# Strict mode
+#!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
 
-# Colors
-GREEN='\033[0;32m'
-NC='\033[0m'
-
-# Variables
 REPLACE_PATTERN="boilerplate"
-EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "setup.sh" "generated")
+EXCLUDE=(".git" "setup.sh")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
-TEMP_DIR=""
 
-SRC="$(dirname "${BASH_SOURCE[0]}")"
-
-# Flags
 NO_GIT=0
 NO_INSTALL=0
-VERBOSE=0
 
-# Parse arguments
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    --no-git) NO_GIT=1; shift ;;
-    --no-install) NO_INSTALL=1; shift ;;
-    --verbose) VERBOSE=1; shift ;;
-    --help)
-      echo "Usage: $0 [options] <app_name>"
-      echo "Options:"
-      echo "  --no-git      Skip git initialization"
-      echo "  --no-install  Skip pnpm install"
-      echo "  --verbose     Enable verbose output"
-      echo "  --help        Show this help message"
-      exit 0
-      ;;
-    -*|--*) echo "Unknown option $1"; exit 1 ;;
-    *) APP_NAME="$1"; shift ;;
-  esac
-done
-
-if [[ -z "${APP_NAME:-}" ]]; then
-  echo "Error: <app_name> is required" >&2
-  exit 1
-fi
-
-# Validate APP_NAME (simple: no slashes)
-if [[ "$APP_NAME" == *[/\\]* ]]; then
-  echo "Error: app_name cannot contain slashes" >&2
-  exit 1
-fi
-
-DST="$(pwd)/$APP_NAME"
-
-# Check required commands
-for cmd in rsync find sed git; do
-   command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is required" >&2; exit 1; }
-done
-
-if [[ $NO_GIT -eq 0 ]]; then
-  command -v git >/dev/null 2>&1 || { echo "Error: git is required (use --no-git to skip)" >&2; exit 1; }
-fi
-
-if [[ $NO_INSTALL -eq 0 ]]; then
-  command -v pnpm >/dev/null 2>&1 || { echo "Error: pnpm is required (use --no-install to skip)" >&2; exit 1; }
-fi
-
-# OS detection for sed
-SED_I="-i"
-if [[ "$(uname)" == "Darwin" ]]; then
-  SED_I="-i ''"
-fi
-
-# Helper function for success messages
-echo_success() {
-   echo -e "${GREEN}✔ $1${NC}"
+throw_error() {
+  printf "%s\n" "Error: $*" >&2
 }
 
-# Function to download boilerplate from GitHub
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      --no-git) NO_GIT=1; shift ;;
+      --no-install) NO_INSTALL=1; shift ;;
+      --help)
+        cat <<EOF
+Usage: $0 [options] [app_name]
+Options:
+  --no-git      Skip git initialization
+  --no-install  Skip pnpm install
+  --help        Show help
+EOF
+        exit 0
+        ;;
+      -*|--*) throw_error "Unknown option $1"; exit 1 ;;
+      *) APP_NAME="$1"; shift ;;
+    esac
+  done
+}
+
+require_app_name() {
+  if [[ -z "${APP_NAME:-}" ]]; then
+    if [[ -e /dev/tty ]]; then
+      read -r -p "Enter app name: " APP_NAME </dev/tty
+    else
+      throw_error "<app_name> is required as an argument or interactive input"; exit 1
+    fi
+  fi
+  APP_NAME="$(printf "%s" "$APP_NAME" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+  if [[ -z "$APP_NAME" ]]; then throw_error "app_name cannot be empty"; exit 1; fi
+  if [[ "$APP_NAME" == *[/\\]* ]]; then throw_error "app_name cannot contain slashes"; exit 1; fi
+  DST="$(pwd)/$APP_NAME"
+}
+
 download_boilerplate() {
-   echo "Downloading boilerplate from GitHub..."
-   TEMP_DIR=$(mktemp -d)
-   git clone --depth 1 --branch main "$REPO_URL" "$TEMP_DIR"
-   rm -rf "$TEMP_DIR/.git"
-   SRC="$TEMP_DIR"
-   echo_success "Downloaded boilerplate"
+  printf "Cloning boilerplate...\n"
+  git clone --depth 1 --branch main "$REPO_URL" "$DST"
+  rm -rf "$DST/.git"
+  SRC="$DST"
+
+  for item in "${EXCLUDE[@]}"; do
+    target="$DST/$item"
+    if [[ -e "$target" ]]; then
+      rm -rf "$target"
+      printf "Removed %s\n" "$target"
+    fi
+  done
+
+  printf "Boilerplate downloaded.\n"
 }
 
-# Functions
-copy_boilerplate() {
-  echo "Adding boilerplate..."
-  mkdir -p "$DST"
-  rsync -a --exclude-from=<(printf '%s\n' "${EXCLUDE[@]}") "$SRC/" "$DST/"
-  echo_success "Added boilerplate"
+
+replace_placeholders() {
+  printf "Replacing placeholders...\n"
+  RP_LOWER=$(printf "%s" "$REPLACE_PATTERN" | tr '[:upper:]' '[:lower:]')
+  RP_UPPER=$(printf "%s" "$REPLACE_PATTERN" | tr '[:lower:]' '[:upper:]')
+  RP_TITLE=$(printf "%s" "$REPLACE_PATTERN" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+
+  APP_LOWER=$(printf "%s" "$APP_NAME" | tr '[:upper:]' '[:lower:]')
+  APP_UPPER=$(printf "%s" "$APP_NAME" | tr '[:lower:]' '[:upper:]')
+  APP_TITLE=$(printf "%s" "$APP_NAME" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+
+  find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | while IFS= read -r file; do
+    perl -0777 -i -pe \
+      "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/^[ \t]*success[ \t]*\\\$/echo_success/gm" \
+      "$file" || printf "Warning: failed to process %s\n" "$file" >&2
+  done
+  printf "Placeholders replaced.\n"
 }
 
-replace_in_files() {
-  echo "Modifying files..."
-  find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' -exec sh -c "sed $SED_I -E 's/$REPLACE_PATTERN/${APP_NAME}/g; s/${REPLACE_PATTERN^}/${APP_NAME^}/g; s/${REPLACE_PATTERN^^}/${APP_NAME^^}/g' \"\$@\"" sh {} +
-  echo_success "Modified files"
-}
-
-git_init_commit() {
-  if [[ $NO_GIT -eq 1 ]]; then return; fi
-  echo "Initializing git repository..."
-  (cd "$DST" && git init && git add -A && git commit -m "Initial commit for $APP_NAME project" >/dev/null 2>&1)
-  echo_success "Initialized git repository"
+init_git() {
+  [[ $NO_GIT -eq 1 ]] && return
+  printf "Initializing git repository...\n"
+  (cd "$DST" && git init > /dev/null 2>&1 && git add -A && git commit -m "Initial commit for $APP_NAME project" >/dev/null 2>&1)
+  printf "Git repository initialized.\n"
 }
 
 setup_env() {
-  if [[ $NO_INSTALL -eq 1 ]]; then return; fi
-  echo "Setting up environment..."
-  (cd "$DST" && pnpm run reset >/dev/null 2>&1) || { echo "Failed to setup environment" >&2; exit 1; }
-  echo_success "Environment setup"
+  [[ $NO_INSTALL -eq 1 ]] && return
+  printf "Setting up environment...\n"
+  (cd "$DST" && pnpm run setup > /dev/null 2>&1) || { throw_error "Failed to setup environment"; exit 1; }
+  printf "Environment setup complete.\n"
 }
 
-# Setup function
-setup() {
-   download_boilerplate
-
-   if [[ ! -d "$SRC" ]]; then
-     echo "Error: Source boilerplate not found: $SRC" >&2
-     exit 1
-   fi
-   if [[ -d "$DST" ]]; then
-     echo "Error: Target directory already exists: $DST" >&2
-     exit 1
-   fi
-
-   copy_boilerplate
-   replace_in_files
-   setup_env
-   git_init_commit
-
-   echo "Your base project is ready!"
-
-   # Cleanup temp directory
-   if [[ -n "$TEMP_DIR" && -d "$TEMP_DIR" ]]; then
-     rm -rf "$TEMP_DIR"
-   fi
+main() {
+  parse_args "$@"
+  require_app_name
+  if [[ -d "$DST" ]]; then throw_error "Target directory exists: $DST"; exit 1; fi
+  download_boilerplate
+  replace_placeholders
+  setup_env
+  init_git
+  printf "Your base project is ready!\n"
 }
 
-# Trap for cleanup (if needed, e.g., for temp files; minimal here)
-trap 'echo "Script interrupted or failed" >&2' INT TERM EXIT
-
-# Run setup
-setup
-
-# Reset trap on success
-trap - INT TERM EXIT
+main "$@"
