@@ -10,7 +10,9 @@ NC='\033[0m'
 
 # Variables
 REPLACE_PATTERN="boilerplate"
-EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "boilerplate" "generated")
+EXCLUDE=(".git" "node_modules" ".next" ".DS_Store" "setup.sh" "generated")
+REPO_URL="https://github.com/maty-millien/boilerplate.git"
+TEMP_DIR=""
 
 SRC="$(dirname "${BASH_SOURCE[0]}")"
 
@@ -53,8 +55,8 @@ fi
 DST="$(pwd)/$APP_NAME"
 
 # Check required commands
-for cmd in rsync find sed; do
-  command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is required" >&2; exit 1; }
+for cmd in rsync find sed git; do
+   command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is required" >&2; exit 1; }
 done
 
 if [[ $NO_GIT -eq 0 ]]; then
@@ -73,7 +75,17 @@ fi
 
 # Helper function for success messages
 echo_success() {
-  echo -e "${GREEN}✔ $1${NC}"
+   echo -e "${GREEN}✔ $1${NC}"
+}
+
+# Function to download boilerplate from GitHub
+download_boilerplate() {
+   echo "Downloading boilerplate from GitHub..."
+   TEMP_DIR=$(mktemp -d)
+   git clone --depth 1 --branch main "$REPO_URL" "$TEMP_DIR"
+   rm -rf "$TEMP_DIR/.git"
+   SRC="$TEMP_DIR"
+   echo_success "Downloaded boilerplate"
 }
 
 # Functions
@@ -106,21 +118,28 @@ setup_env() {
 
 # Setup function
 setup() {
-  if [[ ! -d "$SRC" ]]; then
-    echo "Error: Source boilerplate not found: $SRC" >&2
-    exit 1
-  fi
-  if [[ -d "$DST" ]]; then
-    echo "Error: Target directory already exists: $DST" >&2
-    exit 1
-  fi
+   download_boilerplate
 
-  copy_boilerplate
-  replace_in_files
-  setup_env
-  git_init_commit
+   if [[ ! -d "$SRC" ]]; then
+     echo "Error: Source boilerplate not found: $SRC" >&2
+     exit 1
+   fi
+   if [[ -d "$DST" ]]; then
+     echo "Error: Target directory already exists: $DST" >&2
+     exit 1
+   fi
 
-  echo "Your base project is ready!"
+   copy_boilerplate
+   replace_in_files
+   setup_env
+   git_init_commit
+
+   echo "Your base project is ready!"
+
+   # Cleanup temp directory
+   if [[ -n "$TEMP_DIR" && -d "$TEMP_DIR" ]]; then
+     rm -rf "$TEMP_DIR"
+   fi
 }
 
 # Trap for cleanup (if needed, e.g., for temp files; minimal here)

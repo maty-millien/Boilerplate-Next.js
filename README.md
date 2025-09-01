@@ -9,27 +9,28 @@ A modern starter template for full-stack applications with **Next.js 15**, Googl
 
 ## ✨ Features
 
-* ⚡ **Next.js 15** with App Router
-* 🔐 **Google Authentication** via better-auth
-* 🗄️ **PostgreSQL Database** using Prisma ORM
-* 🖌️ **Prebuilt UI Components** using **shadcn/ui** and Tailwind CSS
-* 🌗 **Light/Dark Theme Toggle** with state persistence
-* 🔔 **Toast Notifications**
+- ⚡ **Next.js 15** with App Router
+- 🔐 **Google Authentication** via better-auth
+- 🗄️ **PostgreSQL Database** using Prisma ORM
+- 🖌️ **Prebuilt UI Components** using **shadcn/ui** and Tailwind CSS
+- 🌗 **Light/Dark Theme Toggle** with state persistence
+- 🔔 **Toast Notifications**
 
-## 🚀 Usage: Create a New Project
+## 🚀 Usage
 
-Run the setup script to scaffold a new project:
+Run the setup script via curl to scaffold a new project:
 
 ```bash
-python setup.py <your_app_name>
+curl -sSL https://raw.githubusercontent.com/maty-millien/boilerplate/main/setup.sh | bash -s <your_app_name>
 ```
 
 This will:
 
-* Copy the boilerplate to a folder named `<your_app_name>`
-* Replace all instances of `"boilerplate"` with your app name
-* Initialize a new Git repository
-* Install dependencies with **npm**
+- Download the latest boilerplate from GitHub
+- Copy the boilerplate to a folder named `<your_app_name>`
+- Replace all instances of `"boilerplate"` with your app name
+- Initialize a new Git repository
+- Install dependencies with **pnpm**
 
 After setup, enter your new project directory and follow the next steps.
 
@@ -38,7 +39,7 @@ After setup, enter your new project directory and follow the next steps.
 ### 1. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Configure environment variables
@@ -67,27 +68,27 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## 📝 Scripts
 
-* `npm run dev` – Start development server
-* `npm run build` – Build for production
-* `npm start` – Run production server
-* `npm run lint` – Lint project files
+- `pnpm run dev` – Start development server
+- `pnpm run build` – Build for production
+- `pnpm start` – Run production server
+- `pnpm run lint` – Lint project files
 
 ## 💻 Tech Stack
 
-* **Frontend:** Next.js 15, React 19, Tailwind CSS, **shadcn/ui**
-* **Backend:** Prisma ORM, PostgreSQL
-* **Auth:** Google OAuth (better-auth)
-* **UI:** Accessible, reusable components (Button, Card, Dialog, Table, etc.)
+- **Frontend:** Next.js 15, React 19, Tailwind CSS, **shadcn/ui**
+- **Backend:** Prisma ORM, PostgreSQL
+- **Auth:** Google OAuth (better-auth)
+- **UI:** Accessible, reusable components (Button, Card, Dialog, Table, etc.)
 
 ## 🎨 Theming
 
-* Light/dark mode toggle
-* Theme state persisted across sessions
+- Light/dark mode toggle
+- Theme state persisted across sessions
 
 ## 🔑 Authentication
 
-* Sign in with Google
-* Session management via PostgreSQL
+- Sign in with Google
+- Session management via PostgreSQL
 
 ## 📂 UI Components
 
