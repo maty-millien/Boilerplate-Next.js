@@ -18,16 +18,16 @@ A modern starter template for full-stack applications with **Next.js 15**, Googl
 
 ## 🚀 Usage
 
-Run the setup script via curl to scaffold a new project:
+Run the setup script via curl to scaffold a new project. The script will prompt you for the app name interactively (you don't need to pass it on the command line):
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/maty-millien/boilerplate/main/setup.sh | bash -s <your_app_name>
+curl -sSL https://raw.githubusercontent.com/maty-millien/boilerplate/main/setup.sh | sh
 ```
 
-This will:
+When you run the script it will:
 
 - Download the latest boilerplate from GitHub
-- Copy the boilerplate to a folder named `<your_app_name>`
+- Prompt you for an app name and copy the boilerplate into a folder with that name
 - Replace all instances of `"boilerplate"` with your app name
 - Initialize a new Git repository
 - Install dependencies with **pnpm**
