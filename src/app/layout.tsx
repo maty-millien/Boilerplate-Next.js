@@ -1,5 +1,5 @@
 import AuthGuard from "@/app/auth/components/auth-guard";
-import "@/components/theme/theme.css";
+import "@/app/globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
