@@ -7,13 +7,11 @@ import { Navbar } from "@/app/landing/components/navbar";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <Navbar />
-      <main className="min-h-screen">
-        <HeroSection />
-        <FeaturesSection />
-        <Footer />
-      </main>
-    </>
+      <HeroSection />
+      <FeaturesSection />
+      <Footer />
+    </main>
   );
 }
