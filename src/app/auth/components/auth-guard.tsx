@@ -26,13 +26,25 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     }
 
     if (!isAuthenticated && !isAuthPage && !isHomePage) {
+      localStorage.setItem("redirectAfterAuth", pathname);
       router.replace("/auth");
     }
 
     if (isAuthenticated && isAuthPage) {
-      router.replace("/dashboard");
+      const redirectPath =
+        localStorage.getItem("redirectAfterAuth") || "/dashboard";
+      localStorage.removeItem("redirectAfterAuth");
+      router.replace(redirectPath);
     }
-  }, [isPending, isClient, isAuthenticated, isAuthPage, isHomePage, router]);
+  }, [
+    isPending,
+    isClient,
+    isAuthenticated,
+    isAuthPage,
+    isHomePage,
+    router,
+    pathname,
+  ]);
 
   if (isPending || !isClient) {
     return null;

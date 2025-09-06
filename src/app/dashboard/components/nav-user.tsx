@@ -8,6 +8,8 @@ import {
   RiTimer2Line,
   RiUserLine,
 } from "@remixicon/react";
+import { createAuthClient } from "better-auth/react";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -23,16 +25,30 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+const { useSession, signOut } = createAuthClient();
+
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const { data: session } = useSession();
+
+  if (!session) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <Link href="/auth" className="flex items-center gap-2">
+              <Avatar className="size-6">
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+              <span className="text-sm">Sign In</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
+  }
+
+  const user = session.user;
 
   return (
     <SidebarMenu>
@@ -44,8 +60,10 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="in-data-[state=expanded]:size-6 transition-[width,height] duration-200 ease-in-out">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user.image || ""} alt={user.name || ""} />
+                <AvatarFallback>
+                  {user.name?.charAt(0)?.toUpperCase() || "U"}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight ms-1">
                 <span className="truncate font-medium">{user.name}</span>
@@ -93,7 +111,7 @@ export function NavUser({
               />
               <span>History</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="gap-3 px-1">
+            <DropdownMenuItem className="gap-3 px-1" onClick={() => signOut()}>
               <RiLogoutCircleLine
                 size={20}
                 className="text-muted-foreground/70"

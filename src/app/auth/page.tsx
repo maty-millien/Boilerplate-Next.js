@@ -15,14 +15,19 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 
-const { useSession } = createAuthClient();
+const { signIn, useSession } = createAuthClient();
 
 export default function AuthPage() {
   const router = useRouter();
   const { data: session, isPending } = useSession();
 
   useEffect(() => {
-    if (!isPending && session) router.replace("/");
+    if (!isPending && session) {
+      const redirectPath =
+        localStorage.getItem("redirectAfterAuth") || "/dashboard";
+      localStorage.removeItem("redirectAfterAuth");
+      router.replace(redirectPath);
+    }
   }, [isPending, session, router]);
 
   if (isPending || session)
@@ -45,7 +50,10 @@ export default function AuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Button onClick={() => {}} className="w-full">
+          <Button
+            onClick={() => signIn.social({ provider: "google" })}
+            className="w-full"
+          >
             <FcGoogle className="mr-2 h-4 w-4" />
             Login with Google
           </Button>
