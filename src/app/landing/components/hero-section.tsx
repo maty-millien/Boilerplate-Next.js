@@ -8,7 +8,6 @@ export function HeroSection() {
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_55%_at_center,white_50%,transparent_85%)]" />
 
-      {/* Animated central blob */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl opacity-20 bg-gradient-to-r from-primary to-chart-4" />
 
       <div className="relative text-center max-w-7xl mx-auto px-4">
