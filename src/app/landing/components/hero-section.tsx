@@ -54,6 +54,7 @@ export function HeroSection() {
           <Button
             size="lg"
             className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 transition-all"
+            onClick={() => (window.location.href = "/dashboard")}
           >
             Get Started Now
             <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />

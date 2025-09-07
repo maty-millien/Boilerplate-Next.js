@@ -19,8 +19,8 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 export default function Page() {
   return (
     <div className="p-4 pt-0 md:p-6 md:pt-0 lg:p-8 lg:pt-0 @container">
-      <header className="flex flex-wrap gap-3 min-h-20 py-4 shrink-0 items-center transition-all ease-linear">
-        {/* Left side */}
+      {/* Header bar */}
+      <div className="flex flex-wrap gap-3 min-h-20 py-4 shrink-0 items-center transition-all ease-linear">
         <div className="flex flex-1 items-center gap-2">
           <SidebarTrigger className="-ms-1" />
           <div className="max-lg:hidden lg:contents">
@@ -41,10 +41,10 @@ export default function Page() {
             </Breadcrumb>
           </div>
         </div>
-        {/* Right side */}
         <ActionButtons />
-      </header>
-      <div className="grid auto-rows-min @2xl:grid-cols-2 bg-border gap-[1px]">
+      </div>
+      {/* Charts grid */}
+      <div className="grid auto-rows-min @2xl:grid-cols-2 bg-border gap-[1px] *:bg-background">
         <Chart01 />
         <Chart02 />
         <Chart03 />
