@@ -30,7 +30,7 @@ When you run the script it will:
 - Prompt you for an app name and copy the boilerplate into a folder with that name
 - Replace all instances of `"boilerplate"` with your app name
 - Initialize a new Git repository
-- Install dependencies with **pnpm**
+- Install dependencies with **bun**
 
 After setup, enter your new project directory and follow the next steps.
 
@@ -39,7 +39,7 @@ After setup, enter your new project directory and follow the next steps.
 ### 1. Install dependencies
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### 2. Configure environment variables
@@ -61,17 +61,17 @@ npx prisma migrate deploy
 ### 4. Run the development server
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## 📝 Scripts
 
-- `pnpm run dev` – Start development server
-- `pnpm run build` – Build for production
-- `pnpm start` – Run production server
-- `pnpm run lint` – Lint project files
+- `bun run dev` – Start development server
+- `bun run build` – Build for production
+- `bun start` – Run production server
+- `bun run lint` – Lint project files
 
 ## 💻 Tech Stack
 

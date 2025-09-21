@@ -24,7 +24,7 @@ parse_args() {
 Usage: $0 [options] [app_name]
 Options:
   --no-git      Skip git initialization
-  --no-install  Skip pnpm install
+  --no-install  Skip bun install
   --help        Show help
 EOF
         exit 0
@@ -95,7 +95,7 @@ init_git() {
 setup_env() {
   [[ $NO_INSTALL -eq 1 ]] && return
   printf "Setting up environment...\n"
-  (cd "$DST" && pnpm run setup > /dev/null 2>&1) || { throw_error "Failed to setup environment"; exit 1; }
+  (cd "$DST" && bun run setup > /dev/null 2>&1) || { throw_error "Failed to setup environment"; exit 1; }
   printf "Environment setup complete.\n"
 }
 
