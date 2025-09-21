@@ -8,9 +8,47 @@ PACKAGE_MANAGER_PLACEHOLDER="PROJECT_PM_VAR"
 EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md" "AGENTS.md" "*.lock")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
 
+C_RESET='\033[0m'
+C_RED='\033[0;31m'
+C_GREEN='\033[0;32m'
+C_YELLOW='\033[0;33m'
+C_BLUE='\033[0;34m'
+C_CYAN='\033[0;36m'
+C_BOLD='\033[1m'
+C_DIM='\033[2m'
+
+echo_step() { printf "\n${C_BOLD}${C_CYAN}› %s${C_RESET}\n" "$*"; }
+echo_success() { printf "${C_GREEN}✓ %s${C_RESET}\n" "$*"; }
+echo_info() { printf "${C_DIM}  %s${C_RESET}\n" "$*"; }
+
 throw_error() {
-  printf "%s\n" "Error: $*" >&2
+  printf "\n${C_RED}Error: %s${C_RESET}\n" "$*" >&2
   exit 1
+}
+
+spinner() {
+  local pid=$1
+  local message=$2
+  local spinstr='|/-\'
+  tput civis
+  while kill -0 "$pid" 2>/dev/null; do
+    local temp=${spinstr#?}
+    printf "  %s %s... " "${spinstr:0:1}" "$message"
+    spinstr=$temp${spinstr%"$temp"}
+    sleep 0.1
+    printf "\r"
+  done
+  tput cnorm
+  wait "$pid"
+  return $?
+}
+
+run_with_spinner() {
+  local message=$1
+  shift
+  "$@" &
+  spinner $! "$message"
+  echo_success "$message"
 }
 
 require_interactive() {
@@ -20,7 +58,7 @@ require_interactive() {
 }
 
 require_package_manager() {
-  printf "Select package manager:\n"
+  echo_step "Select package manager"
   local options=("bun" "npm" "pnpm" "yarn")
   local selected=0
 
@@ -33,9 +71,9 @@ require_package_manager() {
     fi
     for i in "${!options[@]}"; do
       if [[ "$i" -eq "$selected" ]]; then
-        printf "❯ \033[32m%s\033[0m\n" "${options[i]}"
+        printf "  ${C_GREEN}❯ %s${C_RESET}\n" "${options[i]}"
       else
-        printf "  %s\n" "${options[i]}"
+        printf "    %s\n" "${options[i]}"
       fi
     done
   }
@@ -65,36 +103,31 @@ require_package_manager() {
 
 require_project_name() {
   NAME_REGEX='^[a-z0-9-]+$'
+  echo_step "Enter project name"
   while true; do
-    read -r -p "Enter project name: " PROJECT_NAME_INPUT </dev/tty
+    read -r -p "  Project name: " PROJECT_NAME_INPUT </dev/tty
     PROJECT_NAME_INPUT="$(printf "%s" "$PROJECT_NAME_INPUT" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-    [[ -z "$PROJECT_NAME_INPUT" ]] && { printf "Project name cannot be empty. Try something like 'my-app'.\n" >&2; continue; }
+    [[ -z "$PROJECT_NAME_INPUT" ]] && { echo_info "Project name cannot be empty. Try 'my-app'."; continue; }
     [[ "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]] && break
-    printf "Invalid project name. Examples of valid names: 'my-app' or 'project123'.\n" >&2
-    printf "Names may only include lowercase letters, numbers and hyphens (e.g. my-app).\n" >&2
+    echo_info "Invalid name. Use lowercase letters, numbers, and hyphens."
   done
   DST="$(pwd)/$PROJECT_NAME_INPUT"
 }
 
 download_boilerplate() {
-  printf "Cloning boilerplate...\n"
-  git clone --depth 1 --branch main "$REPO_URL" "$DST"
-  rm -rf "$DST/.git"
-
-  for item in "${EXCLUDE[@]}"; do
-    target="$DST/$item"
-    if [[ -e "$target" ]]; then
-      rm -rf "$target"
-      printf "Removed %s\n" "$target"
-    fi
-  done
-
-  printf "Boilerplate downloaded.\n"
+  (
+    git clone --depth 1 --branch main "$REPO_URL" "$DST"
+    rm -rf "$DST/.git"
+    for item in "${EXCLUDE[@]}"; do
+      target="$DST/$item"
+      if [[ -e "$target" ]]; then
+        rm -rf "$target"
+      fi
+    done
+  ) >/dev/null 2>&1
 }
 
-
 replace_placeholders() {
-  printf "Replacing placeholders...\n"
   RP_LOWER=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | tr '[:upper:]' '[:lower:]')
   RP_UPPER=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | tr '[:lower:]' '[:upper:]')
   RP_TITLE=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
@@ -106,34 +139,33 @@ replace_placeholders() {
   find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | while IFS= read -r file; do
     perl -0777 -i -pe \
       "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/$PACKAGE_MANAGER_PLACEHOLDER/$PACKAGE_MANAGER/g; s/^[ \t]*success[ \t]*\\\$/echo_success/gm" \
-      "$file" || printf "Warning: failed to process %s\n" "$file" >&2
+      "$file" 2>/dev/null || true
   done
-  printf "Placeholders replaced.\n"
 }
 
 init_git() {
-  printf "Initializing git repository...\n"
-  (cd "$DST" && git init > /dev/null 2>&1 && git add -A && git commit -m "Initial commit for $PROJECT_NAME_INPUT project" >/dev/null 2>&1)
-  printf "Git repository initialized.\n"
+  (cd "$DST" && git init && git add -A && git commit -m "Initial commit for $PROJECT_NAME_INPUT project") >/dev/null 2>&1
 }
 
 setup_env() {
-  printf "Setting up environment with %s...\n" "$PACKAGE_MANAGER"
-  (cd "$DST" && "$PACKAGE_MANAGER" install > /dev/null 2>&1) || throw_error "Failed to install dependencies"
-  (cd "$DST" && "$PACKAGE_MANAGER" run setup > /dev/null 2>&1) || throw_error "Failed to run setup script"
-  printf "Environment setup complete.\n"
+  (cd "$DST" && "$PACKAGE_MANAGER" install && "$PACKAGE_MANAGER" run setup) >/dev/null 2>&1
 }
 
 main() {
+  printf "${C_BOLD}${C_BLUE}Welcome to the boilerplate setup !${C_RESET}\n"
   require_interactive
   require_project_name
   require_package_manager
   [[ -d "$DST" ]] && throw_error "Target directory exists: $DST"
-  download_boilerplate
-  replace_placeholders
-  setup_env
-  init_git
-  printf "Your base project is ready!\n"
+
+  echo_step "Setting up your project..."
+  run_with_spinner "Cloning boilerplate" download_boilerplate
+  run_with_spinner "Replacing placeholders" replace_placeholders
+  run_with_spinner "Setting up environment" setup_env
+  run_with_spinner "Initializing git repository" init_git
+
+  printf "\n${C_BOLD}${C_GREEN}Your base project is ready!${C_RESET}\n"
+  echo_info "Navigate to your project: cd $PROJECT_NAME_INPUT"
 }
 
 main
