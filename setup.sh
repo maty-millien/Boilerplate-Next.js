@@ -3,8 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-REPLACE_PATTERN="PROJECT_NAME"
-EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md")
+REPLACE_PATTERN="project-name"
+EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md" "AGENTS.md" "*.lock")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
 
 NO_GIT=0
@@ -30,23 +30,39 @@ EOF
         exit 0
         ;;
       -*|--*) throw_error "Unknown option $1"; exit 1 ;;
-      *) APP_NAME="$1"; shift ;;
+      *) PROJECT_NAME_INPUT="$1"; shift ;;
     esac
   done
 }
 
-require_app_name() {
-  if [[ -z "${APP_NAME:-}" ]]; then
+require_project_name() {
+  NAME_REGEX='^[a-z0-9-]+$'
+  if [[ -z "${PROJECT_NAME_INPUT:-}" ]]; then
     if [[ -e /dev/tty ]]; then
-      read -r -p "Enter app name: " APP_NAME </dev/tty
+      while true; do
+        read -r -p "Enter project name: " PROJECT_NAME_INPUT </dev/tty
+        PROJECT_NAME_INPUT="$(printf "%s" "$PROJECT_NAME_INPUT" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+        if [[ -z "$PROJECT_NAME_INPUT" ]]; then
+          printf "Project name cannot be empty. Try something like 'my-app'.\n" >&2
+          continue
+        fi
+        if [[ "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]]; then
+          break
+        else
+          printf "Invalid project name. Examples of valid names: 'my-app' or 'project123'.\n" >&2
+          printf "Names may only include lowercase letters, numbers and hyphens (e.g. my-app).\n" >&2
+          continue
+        fi
+      done
     else
       throw_error "<app_name> is required as an argument or interactive input"; exit 1
     fi
+  else
+    PROJECT_NAME_INPUT="$(printf "%s" "$PROJECT_NAME_INPUT" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+  if [[ -z "$PROJECT_NAME_INPUT" ]]; then throw_error "Project name cannot be empty"; exit 1; fi
+  if ! [[ "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]]; then throw_error "Project name invalid. Examples: my-app or project123"; exit 1; fi
   fi
-  APP_NAME="$(printf "%s" "$APP_NAME" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-  if [[ -z "$APP_NAME" ]]; then throw_error "app_name cannot be empty"; exit 1; fi
-  if [[ "$APP_NAME" == *[/\\]* ]]; then throw_error "app_name cannot contain slashes"; exit 1; fi
-  DST="$(pwd)/$APP_NAME"
+  DST="$(pwd)/$PROJECT_NAME_INPUT"
 }
 
 download_boilerplate() {
@@ -73,9 +89,9 @@ replace_placeholders() {
   RP_UPPER=$(printf "%s" "$REPLACE_PATTERN" | tr '[:lower:]' '[:upper:]')
   RP_TITLE=$(printf "%s" "$REPLACE_PATTERN" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
 
-  APP_LOWER=$(printf "%s" "$APP_NAME" | tr '[:upper:]' '[:lower:]')
-  APP_UPPER=$(printf "%s" "$APP_NAME" | tr '[:lower:]' '[:upper:]')
-  APP_TITLE=$(printf "%s" "$APP_NAME" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+  APP_LOWER=$(printf "%s" "$PROJECT_NAME_INPUT" | tr '[:upper:]' '[:lower:]')
+  APP_UPPER=$(printf "%s" "$PROJECT_NAME_INPUT" | tr '[:lower:]' '[:upper:]')
+  APP_TITLE=$(printf "%s" "$PROJECT_NAME_INPUT" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
 
   find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | while IFS= read -r file; do
     perl -0777 -i -pe \
@@ -88,7 +104,7 @@ replace_placeholders() {
 init_git() {
   [[ $NO_GIT -eq 1 ]] && return
   printf "Initializing git repository...\n"
-  (cd "$DST" && git init > /dev/null 2>&1 && git add -A && git commit -m "Initial commit for $APP_NAME project" >/dev/null 2>&1)
+  (cd "$DST" && git init > /dev/null 2>&1 && git add -A && git commit -m "Initial commit for $PROJECT_NAME_INPUT project" >/dev/null 2>&1)
   printf "Git repository initialized.\n"
 }
 
@@ -101,7 +117,7 @@ setup_env() {
 
 main() {
   parse_args "$@"
-  require_app_name
+  require_project_name
   if [[ -d "$DST" ]]; then throw_error "Target directory exists: $DST"; exit 1; fi
   download_boilerplate
   replace_placeholders
