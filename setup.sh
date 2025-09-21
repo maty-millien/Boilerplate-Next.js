@@ -12,6 +12,7 @@ NO_INSTALL=0
 
 throw_error() {
   printf "%s\n" "Error: $*" >&2
+  exit 1
 }
 
 parse_args() {
@@ -29,7 +30,7 @@ Options:
 EOF
         exit 0
         ;;
-      -*|--*) throw_error "Unknown option $1"; exit 1 ;;
+      -*|--*) throw_error "Unknown option $1" ;;
       *) PROJECT_NAME_INPUT="$1"; shift ;;
     esac
   done
@@ -55,12 +56,12 @@ require_project_name() {
         fi
       done
     else
-      throw_error "<app_name> is required as an argument or interactive input"; exit 1
+      throw_error "<app_name> is required as an argument or interactive input"
     fi
   else
     PROJECT_NAME_INPUT="$(printf "%s" "$PROJECT_NAME_INPUT" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-  if [[ -z "$PROJECT_NAME_INPUT" ]]; then throw_error "Project name cannot be empty"; exit 1; fi
-  if ! [[ "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]]; then throw_error "Project name invalid. Examples: my-app or project123"; exit 1; fi
+  [[ -z "$PROJECT_NAME_INPUT" ]] && throw_error "Project name cannot be empty"
+  [[ ! "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]] && throw_error "Project name invalid. Examples: my-app or project123"
   fi
   DST="$(pwd)/$PROJECT_NAME_INPUT"
 }
@@ -69,7 +70,6 @@ download_boilerplate() {
   printf "Cloning boilerplate...\n"
   git clone --depth 1 --branch main "$REPO_URL" "$DST"
   rm -rf "$DST/.git"
-  SRC="$DST"
 
   for item in "${EXCLUDE[@]}"; do
     target="$DST/$item"
@@ -111,14 +111,14 @@ init_git() {
 setup_env() {
   [[ $NO_INSTALL -eq 1 ]] && return
   printf "Setting up environment...\n"
-  (cd "$DST" && bun run setup > /dev/null 2>&1) || { throw_error "Failed to setup environment"; exit 1; }
+  (cd "$DST" && bun run setup > /dev/null 2>&1) || throw_error "Failed to setup environment"
   printf "Environment setup complete.\n"
 }
 
 main() {
   parse_args "$@"
   require_project_name
-  if [[ -d "$DST" ]]; then throw_error "Target directory exists: $DST"; exit 1; fi
+  [[ -d "$DST" ]] && throw_error "Target directory exists: $DST"
   download_boilerplate
   replace_placeholders
   setup_env
