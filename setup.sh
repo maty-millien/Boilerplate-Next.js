@@ -3,7 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-REPLACE_PATTERN="project-name"
+PROJECT_NAME_PLACEHOLDER="PROJECT_NAME_VAR"
+PACKAGE_MANAGER_PLACEHOLDER="PROJECT_PM_VAR"
 EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md" "AGENTS.md" "*.lock")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
 
@@ -16,6 +17,50 @@ require_interactive() {
   if [[ ! -e /dev/tty ]]; then
     throw_error "Interactive terminal required"
   fi
+}
+
+require_package_manager() {
+  printf "Select package manager:\n"
+  local options=("bun" "npm" "pnpm" "yarn")
+  local selected=0
+
+  trap 'tput cnorm; exit' INT TERM
+  tput civis
+
+  print_menu() {
+    if [[ "${1-}" != "first_run" ]]; then
+      printf "\033[%sA" "${#options[@]}"
+    fi
+    for i in "${!options[@]}"; do
+      if [[ "$i" -eq "$selected" ]]; then
+        printf "❯ \033[32m%s\033[0m\n" "${options[i]}"
+      else
+        printf "  %s\n" "${options[i]}"
+      fi
+    done
+  }
+
+  print_menu "first_run"
+
+  while true; do
+    read -s -n 1 key </dev/tty
+    if [[ "$key" == $'\x1b' ]]; then
+      read -s -n 2 key </dev/tty
+      if [[ "$key" == "[A" ]]; then # Up arrow
+        selected=$(( (selected - 1 + ${#options[@]}) % ${#options[@]} ))
+      elif [[ "$key" == "[B" ]]; then # Down arrow
+        selected=$(( (selected + 1) % ${#options[@]} ))
+      fi
+      print_menu
+    elif [[ "$key" == "" ]]; then # Enter
+      break
+    fi
+  done
+
+  tput cnorm
+  trap - INT TERM
+
+  PACKAGE_MANAGER="${options[selected]}"
 }
 
 require_project_name() {
@@ -50,9 +95,9 @@ download_boilerplate() {
 
 replace_placeholders() {
   printf "Replacing placeholders...\n"
-  RP_LOWER=$(printf "%s" "$REPLACE_PATTERN" | tr '[:upper:]' '[:lower:]')
-  RP_UPPER=$(printf "%s" "$REPLACE_PATTERN" | tr '[:lower:]' '[:upper:]')
-  RP_TITLE=$(printf "%s" "$REPLACE_PATTERN" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+  RP_LOWER=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | tr '[:upper:]' '[:lower:]')
+  RP_UPPER=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | tr '[:lower:]' '[:upper:]')
+  RP_TITLE=$(printf "%s" "$PROJECT_NAME_PLACEHOLDER" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
 
   APP_LOWER=$(printf "%s" "$PROJECT_NAME_INPUT" | tr '[:upper:]' '[:lower:]')
   APP_UPPER=$(printf "%s" "$PROJECT_NAME_INPUT" | tr '[:lower:]' '[:upper:]')
@@ -60,7 +105,7 @@ replace_placeholders() {
 
   find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | while IFS= read -r file; do
     perl -0777 -i -pe \
-      "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/^[ \t]*success[ \t]*\\\$/echo_success/gm" \
+      "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/$PACKAGE_MANAGER_PLACEHOLDER/$PACKAGE_MANAGER/g; s/^[ \t]*success[ \t]*\\\$/echo_success/gm" \
       "$file" || printf "Warning: failed to process %s\n" "$file" >&2
   done
   printf "Placeholders replaced.\n"
@@ -73,14 +118,16 @@ init_git() {
 }
 
 setup_env() {
-  printf "Setting up environment...\n"
-  (cd "$DST" && bun run setup > /dev/null 2>&1) || throw_error "Failed to setup environment"
+  printf "Setting up environment with %s...\n" "$PACKAGE_MANAGER"
+  (cd "$DST" && "$PACKAGE_MANAGER" install > /dev/null 2>&1) || throw_error "Failed to install dependencies"
+  (cd "$DST" && "$PACKAGE_MANAGER" run setup > /dev/null 2>&1) || throw_error "Failed to run setup script"
   printf "Environment setup complete.\n"
 }
 
 main() {
   require_interactive
   require_project_name
+  require_package_manager
   [[ -d "$DST" ]] && throw_error "Target directory exists: $DST"
   download_boilerplate
   replace_placeholders

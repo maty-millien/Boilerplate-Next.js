@@ -1,5 +1,5 @@
 {
-  "name": "project-name",
+  "name": "PROJECT_NAME_VAR",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "up": "bun i && bun update && bun add next@latest",
-    "setup": "bun run up && pnpx prisma generate",
-    "reset": "rm -rf node_modules && rm -rf .next && rm -rf generated && bun run up && pnpx prisma generate"
+    "up": "PROJECT_PM_VAR i && PROJECT_PM_VAR update && PROJECT_PM_VAR add next@latest",
+    "setup": "PROJECT_PM_VAR run up && pnpx prisma generate",
+    "reset": "rm -rf node_modules && rm -rf .next && rm -rf generated && PROJECT_PM_VAR run up && pnpx prisma generate"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
