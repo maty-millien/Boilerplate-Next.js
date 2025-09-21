@@ -71,7 +71,6 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 - `bun run dev` – Start development server
 - `bun run build` – Build for production
 - `bun start` – Run production server
-- `bun run lint` – Lint project files
 
 ## 💻 Tech Stack
 
