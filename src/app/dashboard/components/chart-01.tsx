@@ -4,14 +4,19 @@ import { useId, useState } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { CustomTooltipContent } from "@/app/dashboard/components/charts-extra";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/shared/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-} from "@/components/ui/chart";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from "@/shared/components/ui/chart";
+import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group";
 
 const mrrData = [
   { month: "Jan 2025", actual: 300000, projected: 120000 },

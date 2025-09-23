@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/shared/components/ui/badge";
+import { Button } from "@/shared/components/ui/button";
 import { ArrowRight, Code, Github, Rocket, Sparkles, Zap } from "lucide-react";
 
 export function HeroSection() {

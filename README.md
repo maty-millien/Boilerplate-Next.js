@@ -12,7 +12,7 @@ A modern starter template for full-stack applications with **Next.js 15**, Googl
 - ⚡ **Next.js 15** with App Router
 - 🔐 **Google Authentication** via better-auth
 - 🗄️ **PostgreSQL Database** using Prisma ORM
-- 🖌️ **Prebuilt UI Components** using **shadcn/ui** and Tailwind CSS
+- 🖌️ **Prebuilt UI Components** using shadcn/ui and Tailwind CSS
 - 🌗 **Light/Dark Theme Toggle** with state persistence
 - 🔔 **Toast Notifications**
 
@@ -58,14 +58,6 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 npx prisma migrate deploy
 ```
 
-### 4. Run the development server
-
-```bash
-bun run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) to see your app.
-
 ## 📝 Scripts
 
 - `bun run dev` – Start development server
@@ -74,10 +66,9 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## 💻 Tech Stack
 
-- **Frontend:** Next.js 15, React 19, Tailwind CSS, **shadcn/ui**
+- **Frontend:** Next.js 15, React 19, Tailwind CSS, shadcn/ui
 - **Backend:** Prisma ORM, PostgreSQL
 - **Auth:** Google OAuth (better-auth)
-- **UI:** Accessible, reusable components (Button, Card, Dialog, Table, etc.)
 
 ## 🎨 Theming
 
@@ -87,8 +78,3 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 ## 🔑 Authentication
 
 - Sign in with Google
-- Session management via PostgreSQL
-
-## 📂 UI Components
-
-All reusable components are located in `src/components/ui` based on **shadcn/ui**, ensuring consistent design and rapid development.

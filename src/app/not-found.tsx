@@ -1,8 +1,8 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import ThemeToggle from "@/components/ui/theme-toggle";
+import { Badge } from "@/shared/components/ui/badge";
+import { Button } from "@/shared/components/ui/button";
+import ThemeToggle from "@/shared/components/ui/theme-toggle";
 import { ArrowLeft, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
 

@@ -11,13 +11,18 @@ import {
 } from "recharts";
 
 import { CustomTooltipContent } from "@/app/dashboard/components/charts-extra";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/shared/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-} from "@/components/ui/chart";
+} from "@/shared/components/ui/chart";
 // Subscriber data for the last 12 months
 const chartData = [
   { month: "Jan 2025", actual: 5000, projected: 2000 },

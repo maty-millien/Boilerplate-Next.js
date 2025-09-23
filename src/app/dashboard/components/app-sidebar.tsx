@@ -15,7 +15,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@/shared/components/ui/sidebar";
 import {
   RiCodeSSlashLine,
   RiDatabase2Line,

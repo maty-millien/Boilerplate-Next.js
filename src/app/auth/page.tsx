@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import ThemeToggle from "@/components/ui/theme-toggle";
+} from "@/shared/components/ui/card";
+import ThemeToggle from "@/shared/components/ui/theme-toggle";
 import { createAuthClient } from "better-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";

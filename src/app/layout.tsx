@@ -1,6 +1,6 @@
 import AuthGuard from "@/app/auth/components/auth-guard";
 import "@/app/globals.css";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/shared/components/ui/sonner";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";

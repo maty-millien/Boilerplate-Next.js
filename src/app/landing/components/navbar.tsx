@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import ThemeToggle from "@/components/ui/theme-toggle";
+} from "@/shared/components/ui/sheet";
+import ThemeToggle from "@/shared/components/ui/theme-toggle";
 import { ArrowRight, Code, Menu, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 

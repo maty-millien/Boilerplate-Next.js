@@ -4,13 +4,18 @@ import { useId } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { CustomTooltipContent } from "@/app/dashboard/components/charts-extra";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/shared/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-} from "@/components/ui/chart";
+} from "@/shared/components/ui/chart";
 
 const chartData = [
   { month: "Jan 2025", revenues: 750000, churn: -150000 },

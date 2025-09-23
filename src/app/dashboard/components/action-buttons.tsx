@@ -1,7 +1,7 @@
 "use client";
 
 import DatePicker from "@/app/dashboard/components/date-picker";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 
 export function ActionButtons() {
   return (

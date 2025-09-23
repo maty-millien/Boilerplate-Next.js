@@ -12,9 +12,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+} from "@/shared/components/ui/breadcrumb";
+import { Separator } from "@/shared/components/ui/separator";
+import { SidebarTrigger } from "@/shared/components/ui/sidebar";
 
 export default function Page() {
   return (
