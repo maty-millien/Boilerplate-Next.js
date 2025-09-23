@@ -5,7 +5,7 @@ IFS=$'\n\t'
 
 PROJECT_NAME_PLACEHOLDER="PROJECT_NAME_VAR"
 PACKAGE_MANAGER_PLACEHOLDER="PROJECT_PM_VAR"
-EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md" "AGENTS.md" "*.lock")
+EXCLUDE=(".git" "setup.sh" "LICENSE" "README.md" "AGENTS.md")
 REPO_URL="https://github.com/maty-millien/boilerplate.git"
 
 C_RESET='\033[0m'
@@ -17,12 +17,12 @@ C_CYAN='\033[0;36m'
 C_BOLD='\033[1m'
 C_DIM='\033[2m'
 
-echo_step() { printf "\n${C_BOLD}${C_CYAN}› %s${C_RESET}\n" "$*"; }
-echo_success() { printf "${C_GREEN}✓ %s${C_RESET}\n" "$*"; }
-echo_info() { printf "${C_DIM}  %s${C_RESET}\n" "$*"; }
+log_step() { printf "\n${C_BOLD}${C_CYAN}› %s${C_RESET}\n" "$*"; }
+log_success() { printf "${C_GREEN}✓ %s${C_RESET}\n" "$*"; }
+log_info() { printf "${C_DIM}  %s${C_RESET}\n" "$*"; }
 
 throw_error() {
-  printf "\n${C_RED}Error: %s${C_RESET}\n" "$*" >&2
+  printf "\n${C_RED}❌ Error: %s${C_RESET}\n" "$*" >&2
   exit 1
 }
 
@@ -46,19 +46,34 @@ spinner() {
 run_with_spinner() {
   local message=$1
   shift
-  "$@" &
-  spinner $! "$message"
-  echo_success "$message"
-}
+  local tmpout tmperr pid exit_code
+  tmpout=$(mktemp)
+  tmperr=$(mktemp)
 
-require_interactive() {
-  if [[ ! -e /dev/tty ]]; then
-    throw_error "Interactive terminal required"
+  ("$@" >"$tmpout" 2>"$tmperr") &
+  pid=$!
+
+  spinner "$pid" "$message"
+  exit_code=$?
+
+  if [[ $exit_code -ne 0 ]]; then
+    tput cnorm
+    printf "\n"
+    printf "${C_RED}❌ %s failed (exit code %d)${C_RESET}\n" "$message" "$exit_code" >&2
+    if [[ -s "$tmperr" ]]; then
+      printf "\n" >&2
+      cat "$tmperr" >&2
+    fi
+    rm -f "$tmpout" "$tmperr"
+    exit $exit_code
+  else
+    log_success "$message"
+    rm -f "$tmpout" "$tmperr"
   fi
 }
 
-require_package_manager() {
-  echo_step "Select package manager"
+prompt_package_manager() {
+  log_step "🛒 Select package manager"
   local options=("bun" "npm" "pnpm" "yarn")
   local selected=0
 
@@ -84,13 +99,13 @@ require_package_manager() {
     read -s -n 1 key </dev/tty
     if [[ "$key" == $'\x1b' ]]; then
       read -s -n 2 key </dev/tty
-      if [[ "$key" == "[A" ]]; then # Up arrow
+      if [[ "$key" == "[A" ]]; then
         selected=$(( (selected - 1 + ${#options[@]}) % ${#options[@]} ))
-      elif [[ "$key" == "[B" ]]; then # Down arrow
+      elif [[ "$key" == "[B" ]]; then
         selected=$(( (selected + 1) % ${#options[@]} ))
       fi
       print_menu
-    elif [[ "$key" == "" ]]; then # Enter
+    elif [[ "$key" == "" ]]; then
       break
     fi
   done
@@ -101,30 +116,40 @@ require_package_manager() {
   PACKAGE_MANAGER="${options[selected]}"
 }
 
-require_project_name() {
+prompt_project_name() {
   NAME_REGEX='^[a-z0-9-]+$'
-  echo_step "Enter project name"
+  log_step "📝 Enter project name"
   while true; do
     read -r -p "  Project name: " PROJECT_NAME_INPUT </dev/tty
     PROJECT_NAME_INPUT="$(printf "%s" "$PROJECT_NAME_INPUT" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-    [[ -z "$PROJECT_NAME_INPUT" ]] && { echo_info "Project name cannot be empty. Try 'my-app'."; continue; }
+    [[ -z "$PROJECT_NAME_INPUT" ]] && { log_info "⚠️ Project name cannot be empty. Try 'my-app'."; continue; }
     [[ "$PROJECT_NAME_INPUT" =~ $NAME_REGEX ]] && break
-    echo_info "Invalid name. Use lowercase letters, numbers, and hyphens."
+    log_info "❌ Invalid name. Use lowercase letters, numbers, and hyphens."
   done
   DST="$(pwd)/$PROJECT_NAME_INPUT"
 }
 
-download_boilerplate() {
-  (
-    git clone --depth 1 --branch main "$REPO_URL" "$DST"
-    rm -rf "$DST/.git"
-    for item in "${EXCLUDE[@]}"; do
-      target="$DST/$item"
-      if [[ -e "$target" ]]; then
-        rm -rf "$target"
-      fi
-    done
-  ) >/dev/null 2>&1
+check_target_directory() {
+  if [[ -e "$DST" ]]; then
+    if [[ -d "$DST" && "$(ls -A "$DST")" ]]; then
+      throw_error "Target directory '$DST' already exists and is not empty."
+    elif [[ ! -d "$DST" ]]; then
+      throw_error "A file named '$DST' already exists."
+    fi
+  fi
+}
+
+clone_repo() {
+  git clone --depth 1 --branch main "$REPO_URL" "$DST"
+  if [[ $? -ne 0 ]]; then
+    throw_error "Failed to clone repository from $REPO_URL"
+  fi
+  for item in "${EXCLUDE[@]}"; do
+    target="$DST/$item"
+    if [[ -e "$target" ]]; then
+      rm -rf "$target"
+    fi
+  done
 }
 
 replace_placeholders() {
@@ -138,34 +163,35 @@ replace_placeholders() {
 
   find "$DST" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | while IFS= read -r file; do
     perl -0777 -i -pe \
-      "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/$PACKAGE_MANAGER_PLACEHOLDER/$PACKAGE_MANAGER/g; s/^[ \t]*success[ \t]*\\\$/echo_success/gm" \
+      "s/\Q$RP_LOWER\E/$APP_LOWER/g; s/\Q$RP_TITLE\E/$APP_TITLE/g; s/\Q$RP_UPPER\E/$APP_UPPER/g; s/$PACKAGE_MANAGER_PLACEHOLDER/$PACKAGE_MANAGER/g; s/^[ \t]*success[ \t]*\\\$/log_success/gm" \
       "$file" 2>/dev/null || true
   done
 }
 
 init_git() {
-  (cd "$DST" && git init && git add -A && git commit -m "Initial commit for $PROJECT_NAME_INPUT project") >/dev/null 2>&1
+  (cd "$DST" && git init && git add -A && git commit -m "chore(init): initial commit for $PROJECT_NAME_INPUT project")
 }
 
 setup_env() {
-  (cd "$DST" && "$PACKAGE_MANAGER" install && "$PACKAGE_MANAGER" run setup) >/dev/null 2>&1
+  (cd "$DST" && "$PACKAGE_MANAGER" install && "$PACKAGE_MANAGER" run setup)
 }
 
 main() {
-  printf "${C_BOLD}${C_BLUE}Welcome to the boilerplate setup !${C_RESET}\n"
-  require_interactive
-  require_project_name
-  require_package_manager
-  [[ -d "$DST" ]] && throw_error "Target directory exists: $DST"
+  log_step "👋 Welcome to the boilerplate setup!"
 
-  echo_step "Setting up your project..."
-  run_with_spinner "Cloning boilerplate" download_boilerplate
-  run_with_spinner "Replacing placeholders" replace_placeholders
-  run_with_spinner "Setting up environment" setup_env
-  run_with_spinner "Initializing git repository" init_git
+  prompt_project_name
+  prompt_package_manager
+  check_target_directory
 
-  printf "\n${C_BOLD}${C_GREEN}Your base project is ready!${C_RESET}\n"
-  echo_info "Navigate to your project: cd $PROJECT_NAME_INPUT"
+  log_step "⚙️  Setting up your project..."
+
+  run_with_spinner "🌀 Cloning boilerplate" clone_repo
+  run_with_spinner "🔧 Replacing placeholders" replace_placeholders
+  run_with_spinner "📦 Setting up environment" setup_env
+  run_with_spinner "🗂️ Initializing git repository" init_git
+
+  log_success "🎊 Your base project is ready!"
+  log_info "Navigate to your project: cd $PROJECT_NAME_INPUT"
 }
 
 main
