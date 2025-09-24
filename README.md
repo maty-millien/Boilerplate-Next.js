@@ -1,9 +1,14 @@
 # ⚡ Boilerplate Next.js
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](#)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?logo=postgresql)](#)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-blue?logo=tailwind-css)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](#)  
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?logo=postgresql)](#)  
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-blue?logo=tailwind-css)](#)  
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.1-blue?logo=typescript)](#)  
+[![Prisma](https://img.shields.io/badge/Prisma-v4-blue?logo=prisma)](#)  
+[![Bun](https://img.shields.io/badge/Bun-0.6-black?logo=bun)](#)  
+[![Node.js](https://img.shields.io/badge/Node.js-20-green?logo=node.js)](#)  
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#)
 
 A modern starter template for full-stack applications with **Next.js 15**, Google authentication, PostgreSQL (via Prisma), and a complete UI component library based on **shadcn/ui**. Pre-configured for rapid development with authentication, database integration, theming, and accessible UI.
 
